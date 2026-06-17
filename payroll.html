@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>รายงาน & Analytics — HR OneFlow</title>
+<title>เงินเดือน & Payslip — HR OneFlow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -243,11 +243,6 @@ textarea.form-control{resize:vertical;min-height:80px}
 }
 #sidebar.collapsed .nav-item:hover::after,
 #sidebar.collapsed .nav-item:hover::before{opacity:1}
-/* Active nav indicator dot */
-.nav-item.active .nav-icon::after{
-  content:'';position:absolute;top:6px;right:6px;width:5px;height:5px;
-  border-radius:50%;background:#74ddb0;
-}
 
 /* Scroll to top button */
 #scroll-top{
@@ -430,33 +425,33 @@ body.dark .chart-container canvas{filter:brightness(.95)}
     <button class="sidebar-toggle" id="sb-toggle">◀</button>
   </div>
   <div class="sidebar-scroll"><div class="sidebar-label">OVERVIEW</div>
-<a data-label="แดชบอร์ด" class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-text">แดชบอร์ด</span></a>
-<a data-label="คำขออนุมัติ" class="nav-item" href="approvals.html"><span class="nav-icon">📋</span><span class="nav-text">คำขออนุมัติ</span><span class="nav-badge">12</span></a>
-<a data-label="การแจ้งเตือน" class="nav-item" href="notifications.html"><span class="nav-icon">🔔</span><span class="nav-text">การแจ้งเตือน</span><span class="nav-badge">5</span></a>
+<a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-text">แดชบอร์ด</span></a>
+<a class="nav-item" href="approvals.html"><span class="nav-icon">📋</span><span class="nav-text">คำขออนุมัติ</span><span class="nav-badge">12</span></a>
+<a class="nav-item" href="notifications.html"><span class="nav-icon">🔔</span><span class="nav-text">การแจ้งเตือน</span><span class="nav-badge">5</span></a>
 <div class="sidebar-label">CORE HR</div>
-<a data-label="ข้อมูลพนักงาน" class="nav-item" href="employees.html"><span class="nav-icon">👥</span><span class="nav-text">ข้อมูลพนักงาน</span></a>
-<a data-label="โครงสร้างองค์กร" class="nav-item" href="orgchart.html"><span class="nav-icon">🏢</span><span class="nav-text">โครงสร้างองค์กร</span></a>
-<a data-label="เอกสาร HR" class="nav-item" href="documents.html"><span class="nav-icon">🗂️</span><span class="nav-text">เอกสาร HR</span></a>
-<a data-label="เงินเดือน & Payslip" class="nav-item" href="payroll.html"><span class="nav-icon">💳</span><span class="nav-text">เงินเดือน & Payslip</span></a>
-<a data-label="Onboarding/Off" class="nav-item" href="onboarding.html"><span class="nav-icon">🎒</span><span class="nav-text">Onboarding/Off</span></a>
+<a class="nav-item" href="employees.html"><span class="nav-icon">👥</span><span class="nav-text">ข้อมูลพนักงาน</span></a>
+<a class="nav-item" href="orgchart.html"><span class="nav-icon">🏢</span><span class="nav-text">โครงสร้างองค์กร</span></a>
+<a class="nav-item" href="documents.html"><span class="nav-icon">🗂️</span><span class="nav-text">เอกสาร HR</span></a>
+<a class="nav-item active" href="payroll.html" data-label="เงินเดือน & Payslip"><span class="nav-icon">💳</span><span class="nav-text">เงินเดือน & Payslip</span></a>
+<a class="nav-item" href="onboarding.html"><span class="nav-icon">🎒</span><span class="nav-text">Onboarding/Off</span></a>
 <div class="sidebar-label">TIME & LEAVE</div>
-<a data-label="เช็คอิน/เช็คเอาท์" class="nav-item" href="checkin.html"><span class="nav-icon">⏰</span><span class="nav-text">เช็คอิน/เช็คเอาท์</span></a>
-<a data-label="ลางาน & OT" class="nav-item" href="leave.html"><span class="nav-icon">🗓️</span><span class="nav-text">ลางาน & OT</span></a>
-<a data-label="ตารางกะงาน" class="nav-item" href="shifts.html"><span class="nav-icon">📅</span><span class="nav-text">ตารางกะงาน</span></a>
+<a class="nav-item" href="checkin.html"><span class="nav-icon">⏰</span><span class="nav-text">เช็คอิน/เช็คเอาท์</span></a>
+<a class="nav-item" href="leave.html"><span class="nav-icon">🗓️</span><span class="nav-text">ลางาน & OT</span></a>
+<a class="nav-item" href="shifts.html"><span class="nav-icon">📅</span><span class="nav-text">ตารางกะงาน</span></a>
 <div class="sidebar-label">DEVELOPMENT</div>
-<a data-label="ประเมินผล (KPI)" class="nav-item" href="performance.html"><span class="nav-icon">🎯</span><span class="nav-text">ประเมินผล (KPI)</span></a>
-<a data-label="ฝึกอบรม / LMS" class="nav-item" href="training.html"><span class="nav-icon">📚</span><span class="nav-text">ฝึกอบรม / LMS</span></a>
-<a data-label="สรรหาพนักงาน" class="nav-item" href="recruitment.html"><span class="nav-icon">🔍</span><span class="nav-text">สรรหาพนักงาน</span></a>
+<a class="nav-item" href="performance.html"><span class="nav-icon">🎯</span><span class="nav-text">ประเมินผล (KPI)</span></a>
+<a class="nav-item" href="training.html"><span class="nav-icon">📚</span><span class="nav-text">ฝึกอบรม / LMS</span></a>
+<a class="nav-item" href="recruitment.html"><span class="nav-icon">🔍</span><span class="nav-text">สรรหาพนักงาน</span></a>
 <div class="sidebar-label">ADMIN SERVICE</div>
-<a data-label="จองรถ" class="nav-item" href="carbooking.html"><span class="nav-icon">🚗</span><span class="nav-text">จองรถ</span></a>
-<a data-label="เบิกเครื่องเขียน" class="nav-item" href="inventory.html"><span class="nav-icon">📦</span><span class="nav-text">เบิกเครื่องเขียน</span></a>
-<a data-label="เบิกค่าใช้จ่าย" class="nav-item" href="expense.html"><span class="nav-icon">💰</span><span class="nav-text">เบิกค่าใช้จ่าย</span></a>
-<a data-label="แจ้งซ่อมอาคาร" class="nav-item" href="facility.html"><span class="nav-icon">🔧</span><span class="nav-text">แจ้งซ่อมอาคาร</span></a>
+<a class="nav-item" href="carbooking.html"><span class="nav-icon">🚗</span><span class="nav-text">จองรถ</span></a>
+<a class="nav-item" href="inventory.html"><span class="nav-icon">📦</span><span class="nav-text">เบิกเครื่องเขียน</span></a>
+<a class="nav-item" href="expense.html"><span class="nav-icon">💰</span><span class="nav-text">เบิกค่าใช้จ่าย</span></a>
+<a class="nav-item" href="facility.html"><span class="nav-icon">🔧</span><span class="nav-text">แจ้งซ่อมอาคาร</span></a>
 <div class="sidebar-label">REPORTS & SYSTEM</div>
-<a data-label="รายงาน & Analytics" class="nav-item active" href="reports.html"><span class="nav-icon">📊</span><span class="nav-text">รายงาน & Analytics</span></a>
-<a data-label="PDPA Center" class="nav-item" href="pdpa.html"><span class="nav-icon">🛡️</span><span class="nav-text">PDPA Center</span></a>
-<a data-label="Audit Log" class="nav-item" href="auditlog.html"><span class="nav-icon">🔑</span><span class="nav-text">Audit Log</span></a>
-<a data-label="ตั้งค่าระบบ" class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span><span class="nav-text">ตั้งค่าระบบ</span></a></div>
+<a class="nav-item" href="reports.html"><span class="nav-icon">📊</span><span class="nav-text">รายงาน & Analytics</span></a>
+<a class="nav-item" href="pdpa.html"><span class="nav-icon">🛡️</span><span class="nav-text">PDPA Center</span></a>
+<a class="nav-item" href="auditlog.html"><span class="nav-icon">🔑</span><span class="nav-text">Audit Log</span></a>
+<a class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span><span class="nav-text">ตั้งค่าระบบ</span></a></div>
   <div class="sidebar-bottom">
     <div class="user-card">
       <div class="user-avatar">สม</div>
@@ -469,7 +464,7 @@ body.dark .chart-container canvas{filter:brightness(.95)}
     <div class="topbar-breadcrumb">
       <a href="dashboard.html" style="color:var(--text-secondary)">HR OneFlow</a>
       <span style="color:var(--border)">›</span>
-      <span class="breadcrumb-current">Reports › รายงาน & Analytics</span>
+      <span class="breadcrumb-current">Core HR › เงินเดือน & Payslip</span>
     </div>
     <div class="topbar-search"><span style="color:var(--text-muted);font-size:15px">🔍</span><input type="text" placeholder="ค้นหา..."></div>
     <div class="topbar-actions">
@@ -483,497 +478,229 @@ body.dark .chart-container canvas{filter:brightness(.95)}
   <div id="content">
     
 <div class="page-header">
-  <div><div class="page-title">📊 รายงาน & Analytics</div>
-  <div class="page-subtitle">สรุปข้อมูล HR, ดาวน์โหลดรายงาน, Dashboard ผู้บริหาร</div></div>
+  <div><div class="page-title">💳 เงินเดือน & Payslip</div>
+  <div class="page-subtitle">สรุปเงินเดือน, Payslip รายบุคคล, รายงานเงินได้</div></div>
   <div class="header-actions">
-    <button class="btn btn-outline" onclick="openModal('schedule-modal')">⏰ ตั้งรายงานอัตโนมัติ</button>
-    <button class="btn btn-primary" onclick="openModal('export-modal')">📥 Export</button>
+    <button class="btn btn-gray" onclick="openModal('salary-calc')">🧮 คำนวณเงินเดือน</button>
+    <button class="btn btn-outline" onclick="openModal('payrun-modal')">▶ Run Payroll</button>
+    <button class="btn btn-primary" onclick="openModal('payslip-modal')">📄 ออก Payslip</button>
   </div>
 </div>
 
-<!-- Summary KPI bar -->
-<div class="stats-bar">
-  <div class="stat-cell"><div class="stat-num" style="color:var(--mint-600)">248</div><div class="stat-lbl">พนักงานทั้งหมด</div></div>
-  <div class="stat-cell"><div class="stat-num" style="color:#3b82f6">93.1%</div><div class="stat-lbl">อัตราเข้างาน</div></div>
-  <div class="stat-cell"><div class="stat-num" style="color:#8b5cf6">82%</div><div class="stat-lbl">KPI เฉลี่ย Q2</div></div>
-  <div class="stat-cell"><div class="stat-num" style="color:#f59e0b">2.8%</div><div class="stat-lbl">Turnover Rate</div></div>
-  <div class="stat-cell"><div class="stat-num" style="color:#10b981">18.4</div><div class="stat-lbl">ชม.อบรม/คน/ปี</div></div>
-  <div class="stat-cell"><div class="stat-num" style="color:#ef4444">7.1%</div><div class="stat-lbl">SLA Miss Rate</div></div>
+<div class="kpi-grid">
+  <div class="kpi-card green"><div class="kpi-label">ยอดเงินเดือนรวม (พ.ค.)</div><div class="kpi-value" style="font-size:22px">฿4.82M</div><div class="tag tag-up">▲ +1.2%</div><div class="kpi-icon green">💰</div></div>
+  <div class="kpi-card blue"><div class="kpi-label">OT รวม (พ.ค.)</div><div class="kpi-value">฿182K</div><div class="kpi-icon blue">⏰</div></div>
+  <div class="kpi-card yellow"><div class="kpi-label">รอ Approve Payroll</div><div class="kpi-value">1</div><div class="tag tag-warn">พ.ค. 2568</div><div class="kpi-icon yellow">⏳</div></div>
+  <div class="kpi-card purple"><div class="kpi-label">Payslip ส่งแล้ว</div><div class="kpi-value">241/248</div><div class="kpi-icon purple">📄</div></div>
 </div>
 
 <div class="row-2">
-  <!-- Report Library -->
   <div class="section-card">
-    <div class="card-head"><div class="card-title"><div class="card-icon">📁</div>รายงานสำเร็จรูป</div></div>
-    <div style="padding:0 18px">
-    
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">📋</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">สรุปการเข้างานรายเดือน <span class="badge bdg-green" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">เข้างาน, สาย, ขาด, ลา · Excel/PDF</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: เม.ย. 68</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
+    <div class="card-head"><div class="card-title"><div class="card-icon">📋</div>สรุปเงินเดือน พ.ค. 2568</div>
+      <div style="display:flex;gap:6px">
+        <select class="form-control" style="width:auto;padding:5px 10px;font-size:12px"><option>ทุกแผนก</option><option>ไอที</option><option>HR</option></select>
+        <button class="btn btn-sm btn-gray">⬇ Export</button>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">💰</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">รายงาน OT ประจำเดือน <span class="badge bdg-yellow" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">ชม.OT, ค่าตอบแทน · Excel</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: เม.ย. 68</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
-      </div>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>พนักงาน</th><th>เงินเดือน</th><th>OT</th><th>เบี้ยเลี้ยง</th><th>หัก SSO</th><th>หัก ภาษี</th><th>รับสุทธิ</th><th>สถานะ</th></tr></thead>
+      <tbody>
+<tr onclick="openPanel('payslip-panel')" style="cursor:pointer">
+  <td style="font-size:13px;font-weight:500">กมลชัย วงษ์ประทีป</td>
+  <td style="font-weight:500">65,000</td>
+  <td style="color:var(--mint-600);font-weight:600">2,400</td>
+  <td class="muted">1,500</td>
+  <td style="color:#f59e0b;font-size:12px">(3,250)</td>
+  <td style="color:#ef4444;font-size:12px">(4,820)</td>
+  <td style="font-weight:700;color:var(--mint-700)">60,830</td>
+  <td><span class="badge bdg-green">โอนแล้ว</span></td>
+</tr>
+<tr onclick="openPanel('payslip-panel')" style="cursor:pointer">
+  <td style="font-size:13px;font-weight:500">สุทธิพร มณีรัตน์</td>
+  <td style="font-weight:500">28,000</td>
+  <td style="color:var(--text-muted);font-weight:400">—</td>
+  <td class="muted">800</td>
+  <td style="color:#f59e0b;font-size:12px">(1,400)</td>
+  <td style="color:#ef4444;font-size:12px">(1,200)</td>
+  <td style="font-weight:700;color:var(--mint-700)">26,200</td>
+  <td><span class="badge bdg-green">โอนแล้ว</span></td>
+</tr>
+<tr onclick="openPanel('payslip-panel')" style="cursor:pointer">
+  <td style="font-size:13px;font-weight:500">นิรันดร์ พรชัย</td>
+  <td style="font-weight:500">18,000</td>
+  <td style="color:var(--text-muted);font-weight:400">—</td>
+  <td class="muted">500</td>
+  <td style="color:#f59e0b;font-size:12px">(900)</td>
+  <td style="color:#ef4444;font-size:12px">(0)</td>
+  <td style="font-weight:700;color:var(--mint-700)">17,600</td>
+  <td><span class="badge bdg-yellow">รอ</span></td>
+</tr>
+<tr onclick="openPanel('payslip-panel')" style="cursor:pointer">
+  <td style="font-size:13px;font-weight:500">มนัสนันท์ สืบสาย</td>
+  <td style="font-weight:500">42,000</td>
+  <td style="color:var(--mint-600);font-weight:600">1,200</td>
+  <td class="muted">1,200</td>
+  <td style="color:#f59e0b;font-size:12px">(2,100)</td>
+  <td style="color:#ef4444;font-size:12px">(3,100)</td>
+  <td style="font-weight:700;color:var(--mint-700)">39,200</td>
+  <td><span class="badge bdg-green">โอนแล้ว</span></td>
+</tr>
+<tr onclick="openPanel('payslip-panel')" style="cursor:pointer">
+  <td style="font-size:13px;font-weight:500">อนุสรณ์ ทรงวุฒิ</td>
+  <td style="font-weight:500">75,000</td>
+  <td style="color:var(--mint-600);font-weight:600">3,600</td>
+  <td class="muted">2,000</td>
+  <td style="color:#f59e0b;font-size:12px">(3,750)</td>
+  <td style="color:#ef4444;font-size:12px">(7,200)</td>
+  <td style="font-weight:700;color:var(--mint-700)">69,650</td>
+  <td><span class="badge bdg-green">โอนแล้ว</span></td>
+</tr>
+<tr onclick="openPanel('payslip-panel')" style="cursor:pointer">
+  <td style="font-size:13px;font-weight:500">พนิดา รักสงบ</td>
+  <td style="font-weight:500">32,000</td>
+  <td style="color:var(--text-muted);font-weight:400">—</td>
+  <td class="muted">800</td>
+  <td style="color:#f59e0b;font-size:12px">(1,600)</td>
+  <td style="color:#ef4444;font-size:12px">(1,800)</td>
+  <td style="font-weight:700;color:var(--mint-700)">29,400</td>
+  <td><span class="badge bdg-green">โอนแล้ว</span></td>
+</tr></tbody>
+    </table>
     </div>
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">🎯</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">KPI Summary Q1/2568 <span class="badge bdg-purple" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">คะแนนรายบุคคล/แผนก · Excel</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: Q1</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">👥</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">Headcount Report <span class="badge bdg-blue" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">ตำแหน่ง, แผนก, สัญชาติ · PDF</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: พ.ค. 68</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">📚</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">Training Hours Report <span class="badge bdg-green" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">ชม.อบรม, ต้นทุน · Excel</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: เม.ย. 68</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">🔄</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">Turnover Analysis <span class="badge bdg-red" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">เข้า-ออก, สาเหตุ · Excel</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: Q1</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">💼</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">Recruitment Funnel <span class="badge bdg-orange" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">ผู้สมัคร → รับ, ต้นทุน · PDF</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: เม.ย. 68</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-light)">
-      <div style="font-size:22px;flex-shrink:0">🛡️</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">PDPA Compliance <span class="badge bdg-blue" style="font-size:10px">HR</span></div>
-        <div style="font-size:11px;color:var(--text-secondary)">สถานะ consent, audit · PDF</div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:1px">ล่าสุด: พ.ค. 68</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:11px" onclick="openModal('export-modal')">📥 Export</button>
-        <button class="btn btn-sm btn-gray" style="font-size:11px">👁</button>
-      </div>
-    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 18px;background:var(--bg2);font-size:13px">
+      <span style="color:var(--text-secondary)">รวม 248 คน</span>
+      <span style="font-weight:700;color:var(--mint-700)">รวมสุทธิ: ฿4,824,580</span>
     </div>
   </div>
-
   <div style="display:flex;flex-direction:column;gap:14px">
-    <!-- Headcount trend bar chart -->
     <div class="section-card">
-      <div class="card-head"><div class="card-title"><div class="card-icon">📈</div>Headcount Trend 2568</div></div>
-      <div class="card-body">
-        <div style="display:flex;align-items:flex-end;gap:6px;height:80px;margin-bottom:8px">
+      <div class="card-head"><div class="card-title"><div class="card-icon">📅</div>สถานะ Payroll พ.ค. 2568</div></div>
+      <div style="padding:12px 18px">
+        <div class="timeline">
           
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">230</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-300);height:40px;min-height:8px"></div>
-            <div style="font-size:9px;color:var(--text-muted);font-weight:400">ม.ค</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">235</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-300);height:60px;min-height:8px"></div>
-            <div style="font-size:9px;color:var(--text-muted);font-weight:400">ก.พ</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">238</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-300);height:72px;min-height:8px"></div>
-            <div style="font-size:9px;color:var(--text-muted);font-weight:400">มี.ค</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">241</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-300);height:84px;min-height:8px"></div>
-            <div style="font-size:9px;color:var(--text-muted);font-weight:400">เม.ย</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--mint-700)">248</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-600);height:112px;min-height:8px"></div>
-            <div style="font-size:9px;color:var(--mint-700);font-weight:600">พ.ค</div>
-          </div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-content"><div class="tl-title">รวบรวมข้อมูล</div><div class="tl-detail">เงินเดือน + OT + ลา ครบ</div><div class="tl-time">1 พ.ค.</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-content"><div class="tl-title">คำนวณ Payroll</div><div class="tl-detail">ระบบคำนวณอัตโนมัติ</div><div class="tl-time">3 พ.ค.</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"></div><div class="tl-content"><div class="tl-title">HR Review</div><div class="tl-detail">สุทธิพร ตรวจสอบ</div><div class="tl-time">10 พ.ค.</div></div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-content"><div class="tl-title">รอ Approve</div><div class="tl-detail">ผู้บริหารอนุมัติ — ค้างอยู่</div><div class="tl-time">—</div></div></div>
+          <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-content"><div class="tl-title">โอนเงิน</div><div class="tl-detail">กำหนด 25 พ.ค.</div><div class="tl-time">25 พ.ค.</div></div></div>
         </div>
-        <div style="font-size:12px;color:var(--text-secondary);text-align:center">เพิ่มขึ้น <strong style="color:var(--mint-600)">+18 คน</strong> YTD 2568</div>
       </div>
     </div>
-
-    <!-- Department breakdown -->
     <div class="section-card">
-      <div class="card-head"><div class="card-title"><div class="card-icon">🏢</div>สัดส่วนพนักงานตามแผนก</div></div>
-      <div class="card-body">
-        
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-          <div style="width:8px;height:8px;border-radius:50%;background:#3b82f6;flex-shrink:0"></div>
-          <div style="font-size:12px;flex:1">ไอที</div>
-          <div style="font-size:12px;font-weight:600;color:#3b82f6">48 คน</div>
-          <div style="width:60px;height:5px;background:var(--border-light);border-radius:3px"><div style="height:100%;width:19.35483870967742%;background:#3b82f6;border-radius:3px"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-          <div style="width:8px;height:8px;border-radius:50%;background:#10b981;flex-shrink:0"></div>
-          <div style="font-size:12px;flex:1">ผลิต</div>
-          <div style="font-size:12px;font-weight:600;color:#10b981">82 คน</div>
-          <div style="width:60px;height:5px;background:var(--border-light);border-radius:3px"><div style="height:100%;width:33.064516129032256%;background:#10b981;border-radius:3px"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-          <div style="width:8px;height:8px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div>
-          <div style="font-size:12px;flex:1">ขาย</div>
-          <div style="font-size:12px;font-weight:600;color:#f59e0b">36 คน</div>
-          <div style="width:60px;height:5px;background:var(--border-light);border-radius:3px"><div style="height:100%;width:14.516129032258066%;background:#f59e0b;border-radius:3px"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-          <div style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;flex-shrink:0"></div>
-          <div style="font-size:12px;flex:1">HR</div>
-          <div style="font-size:12px;font-weight:600;color:#8b5cf6">12 คน</div>
-          <div style="width:60px;height:5px;background:var(--border-light);border-radius:3px"><div style="height:100%;width:4.838709677419355%;background:#8b5cf6;border-radius:3px"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-          <div style="width:8px;height:8px;border-radius:50%;background:#ec4899;flex-shrink:0"></div>
-          <div style="font-size:12px;flex:1">บัญชี/การเงิน</div>
-          <div style="font-size:12px;font-weight:600;color:#ec4899">28 คน</div>
-          <div style="width:60px;height:5px;background:var(--border-light);border-radius:3px"><div style="height:100%;width:11.29032258064516%;background:#ec4899;border-radius:3px"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-          <div style="width:8px;height:8px;border-radius:50%;background:#9ca3af;flex-shrink:0"></div>
-          <div style="font-size:12px;flex:1">อื่นๆ</div>
-          <div style="font-size:12px;font-weight:600;color:#9ca3af">42 คน</div>
-          <div style="width:60px;height:5px;background:var(--border-light);border-radius:3px"><div style="height:100%;width:16.93548387096774%;background:#9ca3af;border-radius:3px"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Turnover -->
-    <div class="section-card">
-      <div class="card-head"><div class="card-title"><div class="card-icon">🔄</div>Turnover YTD 2568</div></div>
-      <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        
-        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px">
-          <div style="font-size:20px;font-weight:700;color:var(--mint-500)">24 คน</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:2px">รับพนักงานใหม่</div>
-        </div>
-        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px">
-          <div style="font-size:20px;font-weight:700;color:#ef4444">7 คน</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:2px">ลาออก</div>
-        </div>
-        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px">
-          <div style="font-size:20px;font-weight:700;color:#f59e0b">2.8%</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:2px">Turnover Rate</div>
-        </div>
-        <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px">
-          <div style="font-size:20px;font-weight:700;color:#3b82f6">97.2%</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:2px">Retention</div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <div class="card-head"><div class="card-title"><div class="card-icon">📊</div>สัดส่วนค่าใช้จ่าย</div></div>
+      <div class="card-body" style="padding-top:8px">
+        <div style="position:relative;height:160px"><canvas id="payroll-doughnut"></canvas></div>
+      </div>  </div>
+</div>
 </div>
 
-
-<div class="section-card">
-  <div class="card-head">
-    <div class="card-title"><div class="card-icon">📈</div>Analytics Overview — Q2/2568</div>
-    <div style="display:flex;gap:6px">
-      <button class="btn btn-sm btn-gray" onclick="openModal('export-modal')">📥 Export</button>
-      <button class="btn btn-sm btn-outline">🖨 Print</button>
-    </div>
+<!-- Payslip Panel -->
+<div id="payslip-panel-ov" class="panel-overlay" onclick="closePanel('payslip-panel')"></div>
+<div id="payslip-panel" class="slide-panel">
+  <div class="sp-head">
+    <div style="width:44px;height:44px;border-radius:10px;background:var(--mint-100);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">💳</div>
+    <div><div class="sp-title">Payslip — กมลชัย วงษ์ประทีป</div><div style="font-size:12px;color:var(--text-secondary)">EMP-0012 · พฤษภาคม 2568</div></div>
+    <button class="sp-close" onclick="closePanel('payslip-panel')">✕</button>
   </div>
-  <div class="card-body">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px">
-      
-      <!-- Chart 1: เข้างาน Monthly -->
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:12px">อัตราเข้างาน (%) รายเดือน</div>
-        <div style="display:flex;align-items:flex-end;gap:6px;height:100px">
-          
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">88.2</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-400);height:82.00000000000003px;min-height:6px;transition:height .3s"></div>
-            <div style="font-size:9px;color:var(--text-muted)">ม.ค</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">91.4</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-400);height:114.00000000000006px;min-height:6px;transition:height .3s"></div>
-            <div style="font-size:9px;color:var(--text-muted)">ก.พ</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">89.8</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-400);height:97.99999999999997px;min-height:6px;transition:height .3s"></div>
-            <div style="font-size:9px;color:var(--text-muted)">มี.ค</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">92.1</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-400);height:120.99999999999994px;min-height:6px;transition:height .3s"></div>
-            <div style="font-size:9px;color:var(--text-muted)">เม.ย</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="font-size:9px;color:var(--text-muted)">93.1</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;background:var(--mint-400);height:130.99999999999994px;min-height:6px;transition:height .3s"></div>
-            <div style="font-size:9px;color:var(--text-muted)">พ.ค</div>
-          </div>
-        </div>
-        <div style="font-size:11px;color:var(--mint-700);text-align:center;margin-top:6px;font-weight:500">▲ ดีขึ้น 4.9% จาก Q1</div>
-      </div>
-
-      <!-- Chart 2: Leave type pie (CSS) -->
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:12px">ประเภทการลา Q2</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-          
-          <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:18px;font-weight:700;color:#3b82f6">42%</div>
-            <div style="font-size:10px;color:var(--text-secondary);margin-top:2px">ลาพักร้อน</div>
-            <div style="height:4px;background:var(--border-light);border-radius:2px;margin-top:6px">
-              <div style="height:100%;width:42%;background:#3b82f6;border-radius:2px"></div>
-            </div>
-          </div>
-          <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:18px;font-weight:700;color:#ef4444">31%</div>
-            <div style="font-size:10px;color:var(--text-secondary);margin-top:2px">ลาป่วย</div>
-            <div style="height:4px;background:var(--border-light);border-radius:2px;margin-top:6px">
-              <div style="height:100%;width:31%;background:#ef4444;border-radius:2px"></div>
-            </div>
-          </div>
-          <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:18px;font-weight:700;color:#f59e0b">18%</div>
-            <div style="font-size:10px;color:var(--text-secondary);margin-top:2px">ลากิจ</div>
-            <div style="height:4px;background:var(--border-light);border-radius:2px;margin-top:6px">
-              <div style="height:100%;width:18%;background:#f59e0b;border-radius:2px"></div>
-            </div>
-          </div>
-          <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:18px;font-weight:700;color:#8b5cf6">9%</div>
-            <div style="font-size:10px;color:var(--text-secondary);margin-top:2px">ลาอื่นๆ</div>
-            <div style="height:4px;background:var(--border-light);border-radius:2px;margin-top:6px">
-              <div style="height:100%;width:9%;background:#8b5cf6;border-radius:2px"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chart 3: Turnover trend -->
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:12px">Turnover Rate (%)</div>
-        <div style="position:relative;height:100px">
-          <svg viewBox="0 0 200 80" style="width:100%;height:100%">
-            <defs>
-              <linearGradient id="tGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#3b82f6" stop-opacity=".3"/>
-                <stop offset="100%" stop-color="#3b82f6" stop-opacity=".02"/>
-              </linearGradient>
-            </defs>
-            <path d="M0,60 L40,52 L80,58 L120,44 L160,40 L200,30 L200,80 L0,80 Z" fill="url(#tGrad)"/>
-            <path d="M0,60 L40,52 L80,58 L120,44 L160,40 L200,30" stroke="#3b82f6" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="0" cy="60" r="3" fill="#3b82f6"/><circle cx="40" cy="52" r="3" fill="#3b82f6"/><circle cx="80" cy="58" r="3" fill="#3b82f6"/><circle cx="120" cy="44" r="3" fill="#3b82f6"/><circle cx="160" cy="40" r="3" fill="#3b82f6"/><circle cx="200" cy="30" r="3" fill="#3b82f6"/>
-          </svg>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text-muted);margin-top:2px">
-          <span>Q1-22</span><span>Q2-22</span><span>Q3-22</span><span>Q1-23</span><span>Q2-23</span><span>Q2-25</span>
-        </div>
-        <div style="font-size:11px;color:var(--mint-700);text-align:center;margin-top:6px;font-weight:500">Turnover ลดลงต่อเนื่อง → 2.8%</div>
-      </div>
-
+  <div class="sp-body">
+    <div style="background:linear-gradient(135deg,var(--mint-700),var(--mint-500));border-radius:10px;padding:16px;color:#fff;margin-bottom:16px">
+      <div style="font-size:11px;opacity:.8;margin-bottom:4px">เงินสุทธิที่ได้รับ</div>
+      <div style="font-size:32px;font-weight:700">฿60,830</div>
+      <div style="font-size:11px;opacity:.8;margin-top:4px">โอนเข้า xxx-x-x1234-x · 25 พ.ค. 2568</div>
     </div>
+    <div class="info-section-title">รายได้</div>
     
-    <!-- KPI Heatmap row -->
-    <div style="margin-top:20px;border-top:1px solid var(--border-light);padding-top:16px">
-      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:10px">KPI Score Distribution ตามแผนก (Q2)</div>
-      <div style="overflow-x:auto">
-      <table style="width:100%;border-collapse:collapse;font-size:11px">
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:6px 10px;color:var(--text-muted);font-weight:500">แผนก</th>
-            <th style="padding:6px 10px;color:var(--text-muted);font-weight:500;text-align:center">เม.ย.</th><th style="padding:6px 10px;color:var(--text-muted);font-weight:500;text-align:center">พ.ค.</th><th style="padding:6px 10px;color:var(--text-muted);font-weight:500;text-align:center">Q2 เฉลี่ย</th><th style="padding:6px 10px;color:var(--text-muted);font-weight:500;text-align:center">เป้าหมาย</th><th style="padding:6px 10px;color:var(--text-muted);font-weight:500;text-align:center">สถานะ</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-          <tr style="border-top:1px solid var(--border-light)">
-            <td style="padding:8px 10px;font-weight:500;font-size:12px">ไอที</td>
-            <td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:#dbeafe;color:#1d4ed8">84%</div>
-            </td><td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:var(--mint-100);color:var(--mint-700)">88%</div>
-            </td>
-            <td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--mint-600)">86%</td>
-            <td style="padding:8px 10px;text-align:center;color:var(--text-muted)">85%</td>
-            <td style="padding:8px 10px;text-align:center"><span class="badge bdg-green" style="font-size:10px">✅ บรรลุ</span></td>
-          </tr>
-          <tr style="border-top:1px solid var(--border-light)">
-            <td style="padding:8px 10px;font-weight:500;font-size:12px">HR</td>
-            <td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:#dbeafe;color:#1d4ed8">78%</div>
-            </td><td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:#dbeafe;color:#1d4ed8">82%</div>
-            </td>
-            <td style="padding:8px 10px;text-align:center;font-weight:700;color:#3b82f6">80%</td>
-            <td style="padding:8px 10px;text-align:center;color:var(--text-muted)">80%</td>
-            <td style="padding:8px 10px;text-align:center"><span class="badge bdg-blue" style="font-size:10px">✅ บรรลุ</span></td>
-          </tr>
-          <tr style="border-top:1px solid var(--border-light)">
-            <td style="padding:8px 10px;font-weight:500;font-size:12px">การเงิน</td>
-            <td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:#fef3c7;color:#92400e">72%</div>
-            </td><td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:#dbeafe;color:#1d4ed8">75%</div>
-            </td>
-            <td style="padding:8px 10px;text-align:center;font-weight:700;color:#f59e0b">73%</td>
-            <td style="padding:8px 10px;text-align:center;color:var(--text-muted)">80%</td>
-            <td style="padding:8px 10px;text-align:center"><span class="badge bdg-yellow" style="font-size:10px">⚠️ ไม่บรรลุ</span></td>
-          </tr>
-          <tr style="border-top:1px solid var(--border-light)">
-            <td style="padding:8px 10px;font-weight:500;font-size:12px">ผลิต</td>
-            <td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:var(--mint-100);color:var(--mint-700)">90%</div>
-            </td><td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:var(--mint-100);color:var(--mint-700)">92%</div>
-            </td>
-            <td style="padding:8px 10px;text-align:center;font-weight:700;color:var(--mint-600)">91%</td>
-            <td style="padding:8px 10px;text-align:center;color:var(--text-muted)">88%</td>
-            <td style="padding:8px 10px;text-align:center"><span class="badge bdg-green" style="font-size:10px">✅ บรรลุ</span></td>
-          </tr>
-          <tr style="border-top:1px solid var(--border-light)">
-            <td style="padding:8px 10px;font-weight:500;font-size:12px">ขาย</td>
-            <td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:#fef3c7;color:#92400e">65%</div>
-            </td><td style="padding:8px 10px;text-align:center">
-              <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:24px;border-radius:4px;font-size:11px;font-weight:600;background:#fef3c7;color:#92400e">68%</div>
-            </td>
-            <td style="padding:8px 10px;text-align:center;font-weight:700;color:#f59e0b">66%</td>
-            <td style="padding:8px 10px;text-align:center;color:var(--text-muted)">75%</td>
-            <td style="padding:8px 10px;text-align:center"><span class="badge bdg-red" style="font-size:10px">❌ ไม่บรรลุ</span></td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:13px">เงินเดือน</span><span style="font-size:13px">฿65,000</span>
     </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:13px">ค่าล่วงเวลา (OT)</span><span style="font-size:13px">฿2,400</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:13px">เบี้ยเลี้ยง</span><span style="font-size:13px">฿1,500</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);font-weight:700;color:var(--mint-700)">
+      <span style="font-size:13px">รวมรายได้</span><span style="font-size:13px">฿68,900</span>
+    </div>
+    <div class="info-section-title" style="margin-top:12px">รายการหัก</div>
+    
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:13px">ประกันสังคม (5%)</span><span style="font-size:13px;color:var(--text-secondary)">-฿3,250</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:13px">ภาษีเงินได้ (หัก ณ ที่จ่าย)</span><span style="font-size:13px;color:var(--text-secondary)">-฿4,820</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);">
+      <span style="font-size:13px">กองทุนสำรองเลี้ยงชีพ</span><span style="font-size:13px;color:var(--text-secondary)">-฿0</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border-light);font-weight:700;color:#ef4444">
+      <span style="font-size:13px">รวมหัก</span><span style="font-size:13px;color:#ef4444">-฿8,070</span>
+    </div>
+    <div style="background:var(--mint-50);border-radius:8px;padding:12px;margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:14px;font-weight:600">รับสุทธิ</span>
+      <span style="font-size:20px;font-weight:700;color:var(--mint-700)">฿60,830</span>
+    </div>
+  </div>
+  <div class="sp-foot">
+    <button class="btn btn-gray" style="flex:1" onclick="closePanel('payslip-panel')">ปิด</button>
+    <button class="btn btn-outline" style="flex:1">📧 ส่งอีเมล</button>
+    <button class="btn btn-primary" style="flex:2">📄 Download PDF</button>
   </div>
 </div>
 
-<div class="section-card" id="scheduled-reports">
-  <div class="card-head"><div class="card-title"><div class="card-icon">⏰</div>รายงาน Scheduled (อัตโนมัติ)</div>
-    <button class="btn btn-sm btn-primary" onclick="openModal('schedule-modal')">+ เพิ่ม</button></div>
-  <div class="tbl-wrap"><table class="tbl">
-    <thead><tr><th>รายงาน</th><th>ความถี่</th><th>เวลา</th><th>ส่งถึง</th><th>ส่งล่าสุด</th><th>สถานะ</th><th>จัดการ</th></tr></thead>
-    <tbody>
-    <tr>
-      <td style="font-size:13px;font-weight:500">สรุปการเข้างาน</td>
-      <td class="muted">ทุกวัน</td><td class="muted">08:00</td>
-      <td class="muted">HR Team</td><td class="muted">วันนี้ 08:00</td>
-      <td><span class="badge bdg-green">✅ สำเร็จ</span></td>
-      <td><div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:10px"
-          onclick="showToast('ส่งรายงาน สรุปการเข้างาน แล้ว')">▶ ส่ง</button>
-        <button class="btn btn-sm btn-gray" style="font-size:10px">✏️</button>
-      </div></td>
-    </tr>
-    <tr>
-      <td style="font-size:13px;font-weight:500">OT ประจำสัปดาห์</td>
-      <td class="muted">ทุกจันทร์</td><td class="muted">07:30</td>
-      <td class="muted">ผู้จัดการ</td><td class="muted">จ. 20 พ.ค.</td>
-      <td><span class="badge bdg-green">✅ สำเร็จ</span></td>
-      <td><div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:10px"
-          onclick="showToast('ส่งรายงาน OT ประจำสัปดาห์ แล้ว')">▶ ส่ง</button>
-        <button class="btn btn-sm btn-gray" style="font-size:10px">✏️</button>
-      </div></td>
-    </tr>
-    <tr>
-      <td style="font-size:13px;font-weight:500">Headcount รายเดือน</td>
-      <td class="muted">วันที่ 1</td><td class="muted">09:00</td>
-      <td class="muted">Director</td><td class="muted">1 พ.ค. 68</td>
-      <td><span class="badge bdg-green">✅ สำเร็จ</span></td>
-      <td><div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:10px"
-          onclick="showToast('ส่งรายงาน Headcount รายเดือน แล้ว')">▶ ส่ง</button>
-        <button class="btn btn-sm btn-gray" style="font-size:10px">✏️</button>
-      </div></td>
-    </tr>
-    <tr>
-      <td style="font-size:13px;font-weight:500">PDPA Compliance</td>
-      <td class="muted">ราย Quarter</td><td class="muted">08:00</td>
-      <td class="muted">Legal</td><td class="muted">1 เม.ย. 68</td>
-      <td><span class="badge bdg-yellow">⏳ รอ</span></td>
-      <td><div style="display:flex;gap:4px">
-        <button class="btn btn-sm" style="background:var(--mint-100);color:var(--mint-700);border:none;font-size:10px"
-          onclick="showToast('ส่งรายงาน PDPA Compliance แล้ว')">▶ ส่ง</button>
-        <button class="btn btn-sm btn-gray" style="font-size:10px">✏️</button>
-      </div></td>
-    </tr></tbody>
-  </table></div>
-</div>
-<div id="export-modal-ov" class="modal-overlay" onclick="closeModal('export-modal')">
+
+<div id="salary-calc-ov" class="modal-overlay" onclick="closeModal('salary-calc')">
   <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-head"><div class="modal-title">📥 Export รายงาน</div><button class="modal-close" onclick="closeModal('export-modal')">✕</button></div>
+    <div class="modal-head"><div class="modal-title">🧮 คำนวณเงินเดือนสุทธิ</div><button class="modal-close" onclick="closeModal('salary-calc')">✕</button></div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group full"><label class="form-label">รายงาน</label><select class="form-control"><option>สรุปการเข้างาน</option><option>OT ประจำเดือน</option><option>KPI Summary</option><option>Headcount</option></select></div>
-        <div class="form-group"><label class="form-label">ช่วงเวลา</label><select class="form-control"><option>เดือนนี้</option><option>เดือนที่แล้ว</option><option>ไตรมาสนี้</option><option>กำหนดเอง</option></select></div>
-        <div class="form-group"><label class="form-label">แผนก</label><select class="form-control"><option>ทุกแผนก</option><option>ไอที</option><option>HR</option><option>ผลิต</option></select></div>
-        <div class="form-group"><label class="form-label">รูปแบบไฟล์</label><select class="form-control"><option>Excel (.xlsx)</option><option>PDF</option><option>CSV</option></select></div>
-        <div class="form-group"><label class="form-label">ส่งอีเมล</label><select class="form-control"><option>ไม่ส่ง</option><option>ส่งให้ฉัน</option><option>ส่งให้ผู้บริหาร</option></select></div>
+        <div class="form-group"><label class="form-label">เงินเดือน (บาท)</label><input type="number" class="form-control" id="calc-base" value="50000" oninput="calcSalary()"></div>
+        <div class="form-group"><label class="form-label">OT (บาท)</label><input type="number" class="form-control" id="calc-ot" value="0" oninput="calcSalary()"></div>
+        <div class="form-group"><label class="form-label">เบี้ยเลี้ยง (บาท)</label><input type="number" class="form-control" id="calc-allow" value="1000" oninput="calcSalary()"></div>
+        <div class="form-group"><label class="form-label">กองทุนสำรอง (%)</label><input type="number" class="form-control" id="calc-pf" value="3" oninput="calcSalary()"></div>
+      </div>
+      <div style="background:var(--bg2);border-radius:10px;padding:16px;margin-top:10px" id="calc-result">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+          <div style="color:var(--text-secondary)">รายได้รวม</div><div id="r-gross" style="text-align:right;font-weight:500">—</div>
+          <div style="color:#f59e0b">หัก ประกันสังคม (5%)</div><div id="r-sso" style="text-align:right;color:#f59e0b">—</div>
+          <div style="color:#ef4444">หัก ภาษีเงินได้</div><div id="r-tax" style="text-align:right;color:#ef4444">—</div>
+          <div style="color:#8b5cf6">หัก กองทุนสำรอง</div><div id="r-pf" style="text-align:right;color:#8b5cf6">—</div>
+          <div style="grid-column:1/-1;height:1px;background:var(--border-light);margin:6px 0"></div>
+          <div style="font-weight:700;font-size:15px">รับสุทธิ</div><div id="r-net" style="text-align:right;font-weight:700;font-size:15px;color:var(--mint-700)">—</div>
+        </div>
       </div>
     </div>
-    <div class="modal-foot"><button class="btn btn-gray" onclick="closeModal('export-modal')">ยกเลิก</button><button class="btn btn-primary">📥 สร้างรายงาน</button></div>
+    <div class="modal-foot"><button class="btn btn-gray" onclick="closeModal('salary-calc')">ปิด</button></div>
+  </div>
+</div>
+<div id="payrun-modal-ov" class="modal-overlay" onclick="closeModal('payrun-modal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head"><div class="modal-title">▶ Run Payroll</div><button class="modal-close" onclick="closeModal('payrun-modal')">✕</button></div>
+    <div class="modal-body">
+      <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px;margin-bottom:14px;font-size:13px;color:#92400e">⚠️ การ Run Payroll จะคำนวณเงินเดือนพนักงานทั้งหมด — กรุณาตรวจสอบข้อมูลก่อนดำเนินการ</div>
+      <div class="form-grid">
+        <div class="form-group full"><label class="form-label">รอบเงินเดือน</label><select class="form-control"><option>พฤษภาคม 2568</option><option>มิถุนายน 2568</option></select></div>
+        <div class="form-group"><label class="form-label">วันโอนเงิน</label><input type="date" class="form-control"></div>
+        <div class="form-group"><label class="form-label">รวม OT ถึง</label><input type="date" class="form-control"></div>
+        <div class="form-group full"><label class="form-label">หมายเหตุ</label><input type="text" class="form-control" data-required="1" placeholder="หมายเหตุสำหรับรอบนี้"></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-gray" onclick="closeModal('payrun-modal')">ยกเลิก</button><button class="btn btn-primary">▶ คำนวณ Payroll</button></div>
   </div>
 </div>
 
-<div id="schedule-modal-ov" class="modal-overlay" onclick="closeModal('schedule-modal')">
+<div id="payslip-modal-ov" class="modal-overlay" onclick="closeModal('payslip-modal')">
   <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-head"><div class="modal-title">⏰ ตั้งรายงานอัตโนมัติ</div><button class="modal-close" onclick="closeModal('schedule-modal')">✕</button></div>
+    <div class="modal-head"><div class="modal-title">📄 ออก Payslip</div><button class="modal-close" onclick="closeModal('payslip-modal')">✕</button></div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group full"><label class="form-label">รายงาน</label><select class="form-control"><option>สรุปการเข้างาน</option><option>OT ประจำเดือน</option></select></div>
-        <div class="form-group"><label class="form-label">ความถี่</label><select class="form-control"><option>รายวัน</option><option>รายสัปดาห์ (ทุกจันทร์)</option><option>รายเดือน (วันที่ 1)</option></select></div>
-        <div class="form-group"><label class="form-label">เวลา</label><input type="time" class="form-control" value="08:00"></div>
-        <div class="form-group full"><label class="form-label">ส่งอีเมลถึง</label><input type="email" class="form-control" placeholder="email1@co.th, email2@co.th"></div>
+        <div class="form-group full"><label class="form-label">พนักงาน</label><select class="form-control"><option>ทุกคน (248 คน)</option><option>กมลชัย วงษ์ประทีป</option><option>สุทธิพร มณีรัตน์</option></select></div>
+        <div class="form-group"><label class="form-label">รอบเงินเดือน</label><select class="form-control"><option>พฤษภาคม 2568</option><option>เมษายน 2568</option></select></div>
+        <div class="form-group"><label class="form-label">วิธีส่ง</label><select class="form-control"><option>Email + ระบบ</option><option>ระบบเท่านั้น</option><option>PDF batch download</option></select></div>
       </div>
     </div>
-    <div class="modal-foot"><button class="btn btn-gray" onclick="closeModal('schedule-modal')">ยกเลิก</button><button class="btn btn-primary">💾 บันทึก Schedule</button></div>
+    <div class="modal-foot"><button class="btn btn-gray" onclick="closeModal('payslip-modal')">ยกเลิก</button><button class="btn btn-primary">📤 ส่ง Payslip ทั้งหมด</button></div>
   </div>
 </div>
 
@@ -1017,13 +744,13 @@ function switchTab(btn,contentId){
     group.querySelectorAll('[data-tab]').forEach(t=>t.classList.remove('active'));
     btn.classList.add('active');
     const prefix=group.dataset.tabgroup;
-    // Pattern A: sp-tabs — panes มี data-tabcontent
+    // Pattern A: pane มี data-tabcontent attribute
     const byAttr=document.querySelectorAll('[data-tabcontent="'+prefix+'"]');
-    if(byAttr.length>0){
-      byAttr.forEach(p=>p.style.display='none');
-    } else {
-      // Pattern B: page-tabs — panes มี
-      document.querySelectorAll('[data-tabpane="'+prefix+'"]').forEach(p=>p.style.display='none');
+    if(byAttr.length>0){byAttr.forEach(p=>p.style.display='none');}
+    else{
+      // Pattern B: hide sibling panes by id prefix (contentId เช่น "st-company" → prefix "st-")
+      const idPrefix=contentId.replace(/-[^-]+$/,'-');
+      document.querySelectorAll('[id^="'+idPrefix+'"]').forEach(p=>p.style.display='none');
     }
   }
   const pane=document.getElementById(contentId);
@@ -1062,7 +789,6 @@ function switchTab(btn,contentId){
   update();
   setInterval(update,30000);
 })();
-
 
 // ─── Scroll to top ───
 (function(){
@@ -1304,61 +1030,24 @@ document.querySelectorAll('.modal-foot .btn-primary').forEach(btn=>{
 });
 
 
-// Reports Charts
+// Payroll doughnut
 (function(){
-  const fontFamily = 'Prompt';
-  Chart.defaults.font.family = fontFamily;
-  Chart.defaults.color = '#8aab98';
-
-  // Headcount trend line
-  const ctx1 = document.getElementById('rpt-headcount');
-  if(ctx1) new Chart(ctx1,{
-    type:'line',
-    data:{
-      labels:['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.'],
-      datasets:[{
-        label:'จำนวนพนักงาน',
-        data:[230,235,238,241,248],
-        borderColor:'#1db87a',backgroundColor:'rgba(29,184,122,.12)',
-        tension:.4,fill:true,pointBackgroundColor:'#1db87a',pointRadius:4,pointHoverRadius:6,
-      }]
-    },
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' คน'}}},
-      scales:{y:{min:225,ticks:{font:{size:10}},grid:{color:'rgba(196,225,212,.3)'}},
-              x:{grid:{display:false},ticks:{font:{size:10}}}}
-    }
-  });
-
-  // Leave type doughnut
-  const ctx2 = document.getElementById('rpt-leave-type');
-  if(ctx2) new Chart(ctx2,{
+  const ctx = document.getElementById('payroll-doughnut');
+  if(!ctx) return;
+  Chart.defaults.font.family = 'Prompt';
+  new Chart(ctx,{
     type:'doughnut',
     data:{
-      labels:['ลาพักร้อน','ลาป่วย','ลากิจ','ลาอื่นๆ'],
-      datasets:[{data:[42,31,18,9],backgroundColor:['#3b82f6','#ef4444','#f59e0b','#8b5cf6'],borderWidth:2,borderColor:'transparent'}]
-    },
-    options:{responsive:true,maintainAspectRatio:false,cutout:'65%',
-      plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8,boxWidth:10}}}}
-  });
-
-  // KPI dist bar
-  const ctx3 = document.getElementById('rpt-kpi-dist');
-  if(ctx3) new Chart(ctx3,{
-    type:'bar',
-    data:{
-      labels:['A (90-100)','B (75-89)','C (60-74)','D (<60)'],
+      labels:['เงินเดือน Base','OT','เบี้ยเลี้ยง','SSO นายจ้าง','กองทุนสำรอง','อื่นๆ'],
       datasets:[{
-        label:'คน',
-        data:[38,102,68,12],
-        backgroundColor:['#1db87a','#3b82f6','#f59e0b','#ef4444'],
-        borderRadius:4,
+        data:[4200000,182400,144000,124000,96000,78180],
+        backgroundColor:['#3b82f6','#f59e0b','#8b5cf6','#10b981','#ec4899','#9ca3af'],
+        borderWidth:2,borderColor:'transparent',
       }]
     },
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{y:{ticks:{font:{size:10}},grid:{color:'rgba(196,225,212,.3)'}},
-              x:{grid:{display:false},ticks:{font:{size:10}}}}
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},padding:6,boxWidth:9}},
+               tooltip:{callbacks:{label:c=>'฿'+c.raw.toLocaleString()+' ('+Math.round(c.raw/4824580*100)+'%)'}}}
     }
   });
 })();
@@ -1507,6 +1196,32 @@ document.querySelectorAll('.modal-foot .btn-primary').forEach(btn=>{
   });
 });
 
+
+function calcSalary(){
+  const base  = parseFloat(document.getElementById('calc-base').value)||0;
+  const ot    = parseFloat(document.getElementById('calc-ot').value)||0;
+  const allow = parseFloat(document.getElementById('calc-allow').value)||0;
+  const pfPct = parseFloat(document.getElementById('calc-pf').value)||0;
+  const gross = base+ot+allow;
+  const sso   = Math.min(base*0.05, 750); // SSO max 750
+  const pf    = base*(pfPct/100);
+  const taxable = gross-sso-pf;
+  // ภาษีแบบง่าย progressive
+  let tax=0;
+  const t=taxable-150000;
+  if(t>0) tax=Math.min(t,150000)*0.05;
+  if(t>150000) tax+=Math.min(t-150000,200000)*0.1;
+  if(t>350000) tax+=Math.min(t-350000,500000)*0.15;
+  if(t>850000) tax+=(t-850000)*0.2;
+  const net=gross-sso-pf-Math.max(0,tax);
+  const fmt=v=>'฿'+Math.round(v).toLocaleString();
+  document.getElementById('r-gross').textContent=fmt(gross);
+  document.getElementById('r-sso').textContent='-'+fmt(sso);
+  document.getElementById('r-tax').textContent='-'+fmt(Math.max(0,tax));
+  document.getElementById('r-pf').textContent='-'+fmt(pf);
+  document.getElementById('r-net').textContent=fmt(net);
+}
+calcSalary();
 </script>
 </body>
 </html>

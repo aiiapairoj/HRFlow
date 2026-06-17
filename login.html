@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>เข้าสู่ระบบ — HR OneFlow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --mint-500:#1db87a;--mint-600:#159860;--mint-700:#0e7a4d;
+  --bg:#f6fdf9;--card-bg:#ffffff;--text-primary:#1a2e25;--text-secondary:#4d7060;
+  --text-muted:#8aab98;--border:#c4e1d4;--accent:#1db87a;
+}
+body.dark{
+  --bg:#0f1e17;--card-bg:#1c2f24;--text-primary:#e6f4ed;
+  --text-secondary:#7db898;--text-muted:#4a7360;--border:#2a4535;
+}
+body{font-family:'Prompt',sans-serif;background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
+
+/* Animated background blobs */
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.25;animation:float 8s ease-in-out infinite}
+.blob-1{width:500px;height:500px;background:var(--mint-500);top:-100px;left:-100px;animation-delay:0s}
+.blob-2{width:400px;height:400px;background:#3b82f6;bottom:-80px;right:-80px;animation-delay:3s}
+.blob-3{width:300px;height:300px;background:#8b5cf6;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:6s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+.blob-3{animation-name:float2}
+@keyframes float2{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-55%) scale(1.08)}}
+
+.login-card{
+  background:var(--card-bg);border-radius:20px;padding:40px 44px;width:100%;max-width:420px;
+  box-shadow:0 20px 60px rgba(14,122,77,.12),0 1px 3px rgba(0,0,0,.08);
+  position:relative;z-index:1;
+  border:1px solid rgba(196,225,212,.5);
+}
+.logo-area{text-align:center;margin-bottom:32px}
+.logo-badge{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--mint-600),var(--mint-500));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 14px;box-shadow:0 8px 24px rgba(29,184,122,.3)}
+.logo-title{font-size:22px;font-weight:700;color:var(--text-primary)}
+.logo-sub{font-size:12px;color:var(--text-muted);margin-top:3px;letter-spacing:.3px}
+
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.form-label{font-size:12px;font-weight:600;color:var(--text-secondary);letter-spacing:.3px}
+.input-wrap{position:relative}
+.form-input{
+  width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;
+  padding:11px 14px 11px 42px;font-family:'Prompt',sans-serif;font-size:14px;
+  color:var(--text-primary);outline:none;transition:border .2s,box-shadow .2s;
+}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,184,122,.12);background:var(--card-bg)}
+.input-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
+.show-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:14px;color:var(--text-muted)}
+
+.role-select{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.role-btn{
+  padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);
+  background:var(--bg);cursor:pointer;font-family:'Prompt',sans-serif;font-size:12px;
+  color:var(--text-secondary);transition:all .15s;text-align:center;
+}
+.role-btn:hover{border-color:var(--accent);color:var(--accent);background:#f0faf5}
+.role-btn.active{border-color:var(--accent);background:rgba(29,184,122,.08);color:var(--mint-700);font-weight:600}
+
+.btn-login{
+  width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;
+  padding:13px;font-family:'Prompt',sans-serif;font-size:15px;font-weight:600;
+  cursor:pointer;transition:all .2s;letter-spacing:.3px;
+  box-shadow:0 4px 16px rgba(29,184,122,.3);
+}
+.btn-login:hover{background:var(--mint-600);box-shadow:0 6px 20px rgba(29,184,122,.4);transform:translateY(-1px)}
+.btn-login:active{transform:translateY(0)}
+
+.divider{text-align:center;color:var(--text-muted);font-size:12px;margin:18px 0;position:relative}
+.divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--border)}
+.divider::before{left:0}
+.divider::after{right:0}
+
+.sso-btn{
+  width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;
+  padding:11px;font-family:'Prompt',sans-serif;font-size:13px;font-weight:500;
+  color:var(--text-secondary);cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.sso-btn:hover{border-color:var(--accent);color:var(--text-primary)}
+
+.footer-links{display:flex;justify-content:space-between;margin-top:20px;font-size:12px;color:var(--text-muted)}
+.footer-links a{color:var(--accent);text-decoration:none;font-weight:500}
+
+.alert{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+body.dark .role-btn{background:var(--bg)}
+body.dark .form-input{background:var(--bg)}
+</style>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="login-card">
+  <div class="logo-area">
+    <div class="logo-badge">HR</div>
+    <div class="logo-title">HR OneFlow</div>
+    <div class="logo-sub">ENTERPRISE HR PLATFORM · v2.0</div>
+  </div>
+
+  <div class="alert">💡 Demo: ใช้ข้อมูลใดก็ได้ แล้วกด เข้าสู่ระบบ</div>
+
+  <!-- Role Selector -->
+  <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;letter-spacing:.3px">เข้าระบบในฐานะ</div>
+  <div class="role-select">
+    <button class="role-btn active" onclick="selectRole(this,'admin')">👑 HR Admin</button>
+    <button class="role-btn" onclick="selectRole(this,'hr')">💼 HR Officer</button>
+    <button class="role-btn" onclick="selectRole(this,'manager')">📊 Manager</button>
+    <button class="role-btn" onclick="selectRole(this,'employee')">👤 Employee</button>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">อีเมล / รหัสพนักงาน</label>
+    <div class="input-wrap">
+      <span class="input-icon">👤</span>
+      <input class="form-input" type="text" id="email-input" placeholder="somchai@bug.co.th" value="somchai@bug.co.th">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">รหัสผ่าน</label>
+    <div class="input-wrap">
+      <span class="input-icon">🔒</span>
+      <input class="form-input" type="password" id="pw-input" placeholder="••••••••" value="HR@2568!">
+      <button class="show-pw" onclick="togglePw()">👁</button>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary);cursor:pointer">
+      <input type="checkbox" checked style="accent-color:var(--accent)"> จดจำฉัน
+    </label>
+    <a href="#" style="font-size:12px;color:var(--accent);font-weight:500">ลืมรหัสผ่าน?</a>
+  </div>
+
+  <button class="btn-login" onclick="doLogin()">🚀 เข้าสู่ระบบ</button>
+
+  <div class="divider">หรือเข้าสู่ระบบด้วย</div>
+
+  <button class="sso-btn" onclick="doLogin()">
+    <span>🏢</span> Single Sign-On (Active Directory)
+  </button>
+
+  <div class="footer-links">
+    <span>© 2568 BUGpairoj Group</span>
+    <a href="#">ขอความช่วยเหลือ</a>
+  </div>
+</div>
+
+<script>
+function selectRole(btn, role) {
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const emails = {admin:'somchai@bug.co.th', hr:'sutthiporn@bug.co.th', manager:'anusorn@bug.co.th', employee:'kamolchai@bug.co.th'};
+  document.getElementById('email-input').value = emails[role] || '';
+}
+function togglePw() {
+  const inp = document.getElementById('pw-input');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+function doLogin() {
+  const btn = document.querySelector('.btn-login');
+  btn.textContent = '⏳ กำลังเข้าสู่ระบบ...';
+  btn.style.opacity = '.8';
+  setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
+}
+(function(){
+  if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
+  document.getElementById('email-input').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+  document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+})();
+</script>
+</body>
+</html>

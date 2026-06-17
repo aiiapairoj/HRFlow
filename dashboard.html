@@ -223,7 +223,206 @@ textarea.form-control{resize:vertical;min-height:80px}
   .slide-panel{width:100%}
 }
 @media(max-width:480px){.kpi-grid{grid-template-columns:1fr}.row-3{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
+
+/* Collapsed sidebar tooltip */
+#sidebar.collapsed .nav-item{position:relative}
+#sidebar.collapsed .nav-item::after{
+  content:attr(data-label);
+  position:absolute;left:68px;top:50%;transform:translateY(-50%);
+  background:#1a2e25;color:#fff;
+  font-size:12px;font-weight:500;
+  padding:5px 10px;border-radius:6px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:200;
+  font-family:'Prompt',sans-serif;
+}
+#sidebar.collapsed .nav-item::before{
+  content:'';position:absolute;left:62px;top:50%;transform:translateY(-50%);
+  border:5px solid transparent;border-right-color:#1a2e25;
+  opacity:0;pointer-events:none;transition:opacity .15s;z-index:200;
+}
+#sidebar.collapsed .nav-item:hover::after,
+#sidebar.collapsed .nav-item:hover::before{opacity:1}
+/* Active nav indicator dot */
+.nav-item.active .nav-icon::after{
+  content:'';position:absolute;top:6px;right:6px;width:5px;height:5px;
+  border-radius:50%;background:#74ddb0;
+}
+
+/* Scroll to top button */
+#scroll-top{
+  position:fixed;bottom:80px;right:20px;width:40px;height:40px;
+  border-radius:50%;background:var(--accent);color:#fff;border:none;
+  font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(29,184,122,.35);
+  opacity:0;transform:translateY(10px);transition:all .25s;z-index:99;
+  display:flex;align-items:center;justify-content:center;
+}
+#scroll-top.visible{opacity:1;transform:translateY(0)}
+#scroll-top:hover{background:var(--mint-600);transform:translateY(-2px)}
+
+/* Keyboard shortcut overlay */
+#ks-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+#ks-overlay.open{opacity:1;pointer-events:auto}
+#ks-box{
+  background:var(--card-bg);border-radius:16px;padding:28px 32px;
+  width:520px;max-width:calc(100vw - 32px);
+  box-shadow:0 24px 64px rgba(0,0,0,.25);
+}
+#ks-box h3{font-size:16px;font-weight:600;margin-bottom:16px;color:var(--text-primary)}
+.ks-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+.ks-row{display:flex;align-items:center;gap:8px;padding:5px 0}
+.ks-key{background:var(--bg2);border:1px solid var(--border);border-radius:5px;
+  padding:2px 8px;font-size:11px;font-weight:600;font-family:monospace;
+  color:var(--text-primary);min-width:28px;text-align:center;
+  box-shadow:0 2px 0 var(--border)}
+.ks-desc{font-size:12px;color:var(--text-secondary)}
+
+/* Print styles */
+@media print{
+  #sidebar,#topbar,#scroll-top,#ks-overlay,
+  .btn,.header-actions,.pagination,.modal-overlay,.slide-panel,.panel-overlay,
+  .action-btn,.topbar-search{display:none!important}
+  #main{margin-left:0!important}
+  #content{padding:8px!important}
+  .section-card{box-shadow:none!important;border:1px solid #ddd!important;break-inside:avoid}
+  .kpi-grid{grid-template-columns:repeat(4,1fr)!important}
+  body{background:#fff!important;color:#000!important}
+}
+
+/* Topbar search active state */
+.topbar-search.searching{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,184,122,.12);background:var(--card-bg)}
+.search-results-dropdown{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:10px;box-shadow:var(--shadow-md);z-index:100;
+  overflow:hidden;display:none;
+}
+.search-results-dropdown.open{display:block}
+.sr-item{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  cursor:pointer;transition:background .12s;font-size:13px;color:var(--text-primary)}
+.sr-item:hover{background:var(--mint-50)}
+.sr-item-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.sr-item-page{font-size:10px;color:var(--text-muted);margin-left:auto}
+.topbar-search{position:relative}
+
+
+/* ── Toast notifications ── */
+#toast-container{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:600;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{
+  background:var(--card-bg);border:1px solid var(--border-light);border-radius:10px;
+  padding:11px 18px;font-size:13px;font-weight:500;color:var(--text-primary);
+  box-shadow:0 8px 24px rgba(0,0,0,.14);
+  display:flex;align-items:center;gap:10px;min-width:260px;max-width:380px;
+  pointer-events:auto;
+  animation:toastIn .3s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+.toast.hide{animation:toastOut .25s ease forwards}
+.toast-success{border-left:4px solid var(--mint-500)}
+.toast-error  {border-left:4px solid #ef4444}
+.toast-warn   {border-left:4px solid #f59e0b}
+.toast-info   {border-left:4px solid #3b82f6}
+.toast-icon{font-size:18px;flex-shrink:0}
+.toast-close{margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:16px;padding:0 0 0 8px;line-height:1}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(8px) scale(.96)}}
+
+/* ── Mobile hamburger ── */
+#mobile-menu-btn{
+  display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);
+  background:var(--card-bg);cursor:pointer;align-items:center;justify-content:center;
+  flex-direction:column;gap:4px;padding:8px;
+}
+#mobile-menu-btn span{display:block;width:18px;height:2px;background:var(--text-secondary);border-radius:1px;transition:all .25s}
+@media(max-width:768px){
+  #mobile-menu-btn{display:flex}
+  #sidebar{transform:translateX(-100%);transition:transform .25s ease}
+  #sidebar.mobile-open{transform:translateX(0)}
+  .mobile-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99;display:none}
+  .mobile-backdrop.open{display:block}
+}
+
+/* ── Form validation ── */
+.form-control.is-invalid{border-color:#ef4444;background:#fff5f5}
+.form-control.is-valid{border-color:var(--mint-400)}
+.form-error{font-size:11px;color:#ef4444;margin-top:3px;display:none}
+.form-group.has-error .form-error{display:block}
+.form-group.has-error .form-control{border-color:#ef4444}
+
+/* ── Confirm dialog ── */
+#confirm-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:700;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+#confirm-overlay.open{opacity:1;pointer-events:auto}
+#confirm-box{
+  background:var(--card-bg);border-radius:14px;padding:28px 28px 20px;
+  width:360px;max-width:calc(100vw - 32px);
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+  transform:scale(.94);transition:transform .2s;
+}
+#confirm-overlay.open #confirm-box{transform:scale(1)}
+#confirm-icon{font-size:40px;text-align:center;margin-bottom:12px}
+#confirm-title{font-size:16px;font-weight:600;text-align:center;margin-bottom:6px}
+#confirm-msg{font-size:13px;color:var(--text-secondary);text-align:center;margin-bottom:20px;line-height:1.5}
+#confirm-btns{display:flex;gap:8px}
+
+
+/* ── Loading spinner ── */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+.spinner-green{border-color:rgba(29,184,122,.2);border-top-color:var(--mint-500)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-loading{opacity:.8;pointer-events:none;cursor:not-allowed}
+.btn-loading .spinner{margin-right:4px}
+
+/* ── Form validation ── */
+.form-control.is-invalid{border-color:#ef4444!important;background:#fff5f5}
+.form-control.is-valid  {border-color:var(--mint-400)!important}
+.field-error{font-size:11px;color:#ef4444;margin-top:3px;display:flex;align-items:center;gap:3px}
+.field-error::before{content:'⚠️';font-size:10px}
+
+/* ── Export feedback ── */
+.export-badge{
+  position:fixed;bottom:76px;right:70px;background:var(--mint-700);color:#fff;
+  border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500;
+  z-index:600;opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;
+  display:flex;align-items:center;gap:6px;
+}
+.export-badge.show{opacity:1;transform:translateY(0)}
+
+/* ── Print button ── */
+.print-btn{
+  display:inline-flex;align-items:center;gap:5px;border-radius:8px;
+  padding:7px 14px;font-family:'Prompt',sans-serif;font-size:12px;
+  background:var(--bg2);border:1px solid var(--border);color:var(--text-secondary);
+  cursor:pointer;transition:all .15s;font-weight:500;
+}
+.print-btn:hover{border-color:var(--accent);color:var(--mint-700)}
+
+/* ── Table scroll hint ── */
+.tbl-wrap{position:relative}
+.tbl-wrap::after{
+  content:'';position:absolute;right:0;top:0;bottom:0;width:24px;
+  background:linear-gradient(to left,var(--card-bg),transparent);
+  pointer-events:none;opacity:0;transition:opacity .2s;
+}
+.tbl-wrap.scrollable::after{opacity:1}
+
+/* ── Dark mode chart overlay fix ── */
+.chart-container{position:relative}
+body.dark .chart-container canvas{filter:brightness(.95)}
+
+/* ── Sticky table header ── */
+.tbl thead th{position:sticky;top:0;z-index:2;background:var(--bg)}
+
+
+  .sparkline-wrap{position:relative;height:50px;margin:8px 0}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <nav id="sidebar">
@@ -233,32 +432,33 @@ textarea.form-control{resize:vertical;min-height:80px}
     <button class="sidebar-toggle" id="sb-toggle">◀</button>
   </div>
   <div class="sidebar-scroll"><div class="sidebar-label">OVERVIEW</div>
-<a class="nav-item active" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-text">แดชบอร์ด</span></a>
-<a class="nav-item" href="approvals.html"><span class="nav-icon">📋</span><span class="nav-text">คำขออนุมัติ</span><span class="nav-badge">12</span></a>
-<a class="nav-item" href="notifications.html"><span class="nav-icon">🔔</span><span class="nav-text">การแจ้งเตือน</span><span class="nav-badge">5</span></a>
+<a data-label="แดชบอร์ด" class="nav-item active" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-text">แดชบอร์ด</span></a>
+<a data-label="คำขออนุมัติ" class="nav-item" href="approvals.html"><span class="nav-icon">📋</span><span class="nav-text">คำขออนุมัติ</span><span class="nav-badge">12</span></a>
+<a data-label="การแจ้งเตือน" class="nav-item" href="notifications.html"><span class="nav-icon">🔔</span><span class="nav-text">การแจ้งเตือน</span><span class="nav-badge">5</span></a>
 <div class="sidebar-label">CORE HR</div>
-<a class="nav-item" href="employees.html"><span class="nav-icon">👥</span><span class="nav-text">ข้อมูลพนักงาน</span></a>
-<a class="nav-item" href="orgchart.html"><span class="nav-icon">🏢</span><span class="nav-text">โครงสร้างองค์กร</span></a>
-<a class="nav-item" href="documents.html"><span class="nav-icon">🗂️</span><span class="nav-text">เอกสาร HR</span></a>
-<a class="nav-item" href="onboarding.html"><span class="nav-icon">🎒</span><span class="nav-text">Onboarding/Off</span></a>
+<a data-label="ข้อมูลพนักงาน" class="nav-item" href="employees.html"><span class="nav-icon">👥</span><span class="nav-text">ข้อมูลพนักงาน</span></a>
+<a data-label="โครงสร้างองค์กร" class="nav-item" href="orgchart.html"><span class="nav-icon">🏢</span><span class="nav-text">โครงสร้างองค์กร</span></a>
+<a data-label="เอกสาร HR" class="nav-item" href="documents.html"><span class="nav-icon">🗂️</span><span class="nav-text">เอกสาร HR</span></a>
+<a data-label="เงินเดือน & Payslip" class="nav-item" href="payroll.html"><span class="nav-icon">💳</span><span class="nav-text">เงินเดือน & Payslip</span></a>
+<a data-label="Onboarding/Off" class="nav-item" href="onboarding.html"><span class="nav-icon">🎒</span><span class="nav-text">Onboarding/Off</span></a>
 <div class="sidebar-label">TIME & LEAVE</div>
-<a class="nav-item" href="checkin.html"><span class="nav-icon">⏰</span><span class="nav-text">เช็คอิน/เช็คเอาท์</span></a>
-<a class="nav-item" href="leave.html"><span class="nav-icon">🗓️</span><span class="nav-text">ลางาน & OT</span></a>
-<a class="nav-item" href="shifts.html"><span class="nav-icon">📅</span><span class="nav-text">ตารางกะงาน</span></a>
+<a data-label="เช็คอิน/เช็คเอาท์" class="nav-item" href="checkin.html"><span class="nav-icon">⏰</span><span class="nav-text">เช็คอิน/เช็คเอาท์</span></a>
+<a data-label="ลางาน & OT" class="nav-item" href="leave.html"><span class="nav-icon">🗓️</span><span class="nav-text">ลางาน & OT</span></a>
+<a data-label="ตารางกะงาน" class="nav-item" href="shifts.html"><span class="nav-icon">📅</span><span class="nav-text">ตารางกะงาน</span></a>
 <div class="sidebar-label">DEVELOPMENT</div>
-<a class="nav-item" href="performance.html"><span class="nav-icon">🎯</span><span class="nav-text">ประเมินผล (KPI)</span></a>
-<a class="nav-item" href="training.html"><span class="nav-icon">📚</span><span class="nav-text">ฝึกอบรม / LMS</span></a>
-<a class="nav-item" href="recruitment.html"><span class="nav-icon">🔍</span><span class="nav-text">สรรหาพนักงาน</span></a>
+<a data-label="ประเมินผล (KPI)" class="nav-item" href="performance.html"><span class="nav-icon">🎯</span><span class="nav-text">ประเมินผล (KPI)</span></a>
+<a data-label="ฝึกอบรม / LMS" class="nav-item" href="training.html"><span class="nav-icon">📚</span><span class="nav-text">ฝึกอบรม / LMS</span></a>
+<a data-label="สรรหาพนักงาน" class="nav-item" href="recruitment.html"><span class="nav-icon">🔍</span><span class="nav-text">สรรหาพนักงาน</span></a>
 <div class="sidebar-label">ADMIN SERVICE</div>
-<a class="nav-item" href="carbooking.html"><span class="nav-icon">🚗</span><span class="nav-text">จองรถ</span></a>
-<a class="nav-item" href="inventory.html"><span class="nav-icon">📦</span><span class="nav-text">เบิกเครื่องเขียน</span></a>
-<a class="nav-item" href="expense.html"><span class="nav-icon">💰</span><span class="nav-text">เบิกค่าใช้จ่าย</span></a>
-<a class="nav-item" href="facility.html"><span class="nav-icon">🔧</span><span class="nav-text">แจ้งซ่อมอาคาร</span></a>
+<a data-label="จองรถ" class="nav-item" href="carbooking.html"><span class="nav-icon">🚗</span><span class="nav-text">จองรถ</span></a>
+<a data-label="เบิกเครื่องเขียน" class="nav-item" href="inventory.html"><span class="nav-icon">📦</span><span class="nav-text">เบิกเครื่องเขียน</span></a>
+<a data-label="เบิกค่าใช้จ่าย" class="nav-item" href="expense.html"><span class="nav-icon">💰</span><span class="nav-text">เบิกค่าใช้จ่าย</span></a>
+<a data-label="แจ้งซ่อมอาคาร" class="nav-item" href="facility.html"><span class="nav-icon">🔧</span><span class="nav-text">แจ้งซ่อมอาคาร</span></a>
 <div class="sidebar-label">REPORTS & SYSTEM</div>
-<a class="nav-item" href="reports.html"><span class="nav-icon">📊</span><span class="nav-text">รายงาน & Analytics</span></a>
-<a class="nav-item" href="pdpa.html"><span class="nav-icon">🛡️</span><span class="nav-text">PDPA Center</span></a>
-<a class="nav-item" href="auditlog.html"><span class="nav-icon">🔑</span><span class="nav-text">Audit Log</span></a>
-<a class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span><span class="nav-text">ตั้งค่าระบบ</span></a></div>
+<a data-label="รายงาน & Analytics" class="nav-item" href="reports.html"><span class="nav-icon">📊</span><span class="nav-text">รายงาน & Analytics</span></a>
+<a data-label="PDPA Center" class="nav-item" href="pdpa.html"><span class="nav-icon">🛡️</span><span class="nav-text">PDPA Center</span></a>
+<a data-label="Audit Log" class="nav-item" href="auditlog.html"><span class="nav-icon">🔑</span><span class="nav-text">Audit Log</span></a>
+<a data-label="ตั้งค่าระบบ" class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span><span class="nav-text">ตั้งค่าระบบ</span></a></div>
   <div class="sidebar-bottom">
     <div class="user-card">
       <div class="user-avatar">สม</div>
@@ -292,6 +492,35 @@ textarea.form-control{resize:vertical;min-height:80px}
     <a class="btn btn-primary" href="employees.html">+ เพิ่มพนักงาน</a>
   </div>
 </div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;overflow-x:auto;padding-bottom:2px">
+  
+  <a href="employees.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='var(--mint-500)';this.style.color='var(--mint-500)'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">👤</span>เพิ่มพนักงาน
+  </a>
+  <a href="leave.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='#3b82f6';this.style.color='#3b82f6'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">🗓️</span>ยื่นใบลา
+  </a>
+  <a href="checkin.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='#f59e0b';this.style.color='#f59e0b'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">⏰</span>เช็คอิน
+  </a>
+  <a href="facility.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='#ef4444';this.style.color='#ef4444'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">🔧</span>แจ้งซ่อม
+  </a>
+  <a href="expense.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='#8b5cf6';this.style.color='#8b5cf6'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">💰</span>เบิกค่าใช้จ่าย
+  </a>
+  <a href="approvals.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='#10b981';this.style.color='#10b981'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">📋</span>อนุมัติคำขอ
+  </a>
+  <a href="reports.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='#ec4899';this.style.color='#ec4899'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">📊</span>ออกรายงาน
+  </a>
+  <a href="payroll.html" style="display:flex;align-items:center;gap:6px;background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-primary);text-decoration:none;white-space:nowrap;transition:all .15s;flex-shrink:0" onmouseenter="this.style.borderColor='#f97316';this.style.color='#f97316'" onmouseleave="this.style.borderColor='var(--border-light)';this.style.color='var(--text-primary)'">
+    <span style="font-size:15px">💳</span>ดู Payslip
+  </a>
+</div>
+
 <div class="kpi-grid">
   <div class="kpi-card green"><div class="kpi-label">พนักงานทั้งหมด</div><div class="kpi-value">248</div><div class="tag tag-up">▲ +3 คนใหม่เดือนนี้</div><div class="kpi-icon green">👥</div></div>
   <div class="kpi-card yellow"><div class="kpi-label">รออนุมัติวันนี้</div><div class="kpi-value">12</div><div class="tag tag-warn">ลา 7 · OT 3 · อื่นๆ 2</div><div class="kpi-icon yellow">⏳</div></div>
@@ -357,37 +586,7 @@ textarea.form-control{resize:vertical;min-height:80px}
     <div class="section-card">
       <div class="card-head"><div class="card-title"><div class="card-icon">📊</div>เช็คอิน 7 วันล่าสุด</div></div>
       <div class="card-body">
-        <div style="display:flex;align-items:flex-end;gap:8px;height:90px">
-          
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div style="width:100%;border-radius:4px 4px 0 0;background:var(--mint-300);height:72px"></div>
-            <div style="font-size:10px;color:var(--text-muted);font-weight:400">จ</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div style="width:100%;border-radius:4px 4px 0 0;background:var(--mint-300);height:80px"></div>
-            <div style="font-size:10px;color:var(--text-muted);font-weight:400">อ</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div style="width:100%;border-radius:4px 4px 0 0;background:var(--mint-300);height:68px"></div>
-            <div style="font-size:10px;color:var(--text-muted);font-weight:400">พ</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div style="width:100%;border-radius:4px 4px 0 0;background:var(--mint-600);height:88px"></div>
-            <div style="font-size:10px;color:var(--mint-700);font-weight:600">พฤ</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div style="width:100%;border-radius:4px 4px 0 0;background:var(--mint-300);height:20px"></div>
-            <div style="font-size:10px;color:var(--text-muted);font-weight:400">ศ</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div style="width:100%;border-radius:4px 4px 0 0;background:#fca5a5;height:14px"></div>
-            <div style="font-size:10px;color:var(--text-muted);font-weight:400">ส</div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div style="width:100%;border-radius:4px 4px 0 0;background:#fca5a5;height:10px"></div>
-            <div style="font-size:10px;color:var(--text-muted);font-weight:400">อา</div>
-          </div>
-        </div>
+        <div style="position:relative;height:120px"><canvas id="dash-checkin-chart"></canvas></div>
       </div>
     </div>
     <div class="section-card" style="flex:1">
@@ -480,6 +679,56 @@ textarea.form-control{resize:vertical;min-height:80px}
     </div>
   </div>
 </div>
+
+<div class="row-eq">
+  <div class="section-card" id="payroll-kpi">
+    <div class="card-head"><div class="card-title"><div class="card-icon">💳</div>เงินเดือน พ.ค. 2568</div><a class="card-link" href="payroll.html">จัดการ →</a></div>
+    <div class="card-body">
+      <div style="text-align:center;margin-bottom:12px">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">ยอดโอนสุทธิ</div>
+        <div style="font-size:28px;font-weight:700;color:var(--mint-700)">฿4,824,580</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:3px">248 คน · กำหนดโอน 25 พ.ค. 68</div>
+      </div>
+      <div class="sparkline-wrap"><canvas id="dash-payroll-spark"></canvas></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        
+        <div style="text-align:center"><div style="font-size:13px;font-weight:700;color:#1db87a">฿4.58M</div><div style="font-size:10px;color:var(--text-muted)">อนุมัติแล้ว</div></div>
+        <div style="text-align:center"><div style="font-size:13px;font-weight:700;color:#f59e0b">฿0.24M</div><div style="font-size:10px;color:var(--text-muted)">รอโอน</div></div>
+        <div style="text-align:center"><div style="font-size:13px;font-weight:700;color:#ef4444">฿0.89M</div><div style="font-size:10px;color:var(--text-muted)">หัก</div></div>
+      </div>
+      <a href="payroll.html" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;margin-top:12px">▶ อนุมัติ Payroll</a>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="card-head"><div class="card-title"><div class="card-icon">🎯</div>KPI สรุป Q2</div><a class="card-link" href="performance.html">ดูทั้งหมด →</a></div>
+    <div class="card-body">
+      <div class="sparkline-wrap"><canvas id="dash-kpi-spark"></canvas></div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span class="badge bdg-green" style="font-size:10px;min-width:50px;justify-content:center">A (>90%)</span>
+        <div style="flex:1;height:6px;background:var(--border-light);border-radius:3px;overflow:hidden"><div style="height:100%;width:95%;background:#1db87a;border-radius:3px"></div></div>
+        <span style="font-size:11px;color:var(--text-secondary);min-width:40px;text-align:right">38 คน</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span class="badge bdg-blue" style="font-size:10px;min-width:50px;justify-content:center">B (75-89%)</span>
+        <div style="flex:1;height:6px;background:var(--border-light);border-radius:3px;overflow:hidden"><div style="height:100%;width:102.5%;background:#3b82f6;border-radius:3px"></div></div>
+        <span style="font-size:11px;color:var(--text-secondary);min-width:40px;text-align:right">102 คน</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span class="badge bdg-yellow" style="font-size:10px;min-width:50px;justify-content:center">C (60-74%)</span>
+        <div style="flex:1;height:6px;background:var(--border-light);border-radius:3px;overflow:hidden"><div style="height:100%;width:67.5%;background:#f59e0b;border-radius:3px"></div></div>
+        <span style="font-size:11px;color:var(--text-secondary);min-width:40px;text-align:right">68 คน</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span class="badge bdg-red" style="font-size:10px;min-width:50px;justify-content:center">D (<60%)</span>
+        <div style="flex:1;height:6px;background:var(--border-light);border-radius:3px;overflow:hidden"><div style="height:100%;width:12.5%;background:#ef4444;border-radius:3px"></div></div>
+        <span style="font-size:11px;color:var(--text-secondary);min-width:40px;text-align:right">12 คน</span>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--mint-700);text-align:center;margin-top:8px">เฉลี่ยทั้งบริษัท: 82% ▲ +3% จาก Q1</div>
+    </div>
+  </div>
+</div>
 <div id="report-ov" class="modal-overlay" onclick="closeModal('report')">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-head"><div class="modal-title">ออกรายงาน</div><button class="modal-close" onclick="closeModal('report')">✕</button></div>
@@ -534,7 +783,14 @@ function switchTab(btn,contentId){
     group.querySelectorAll('[data-tab]').forEach(t=>t.classList.remove('active'));
     btn.classList.add('active');
     const prefix=group.dataset.tabgroup;
-    document.querySelectorAll('[data-tabcontent="'+prefix+'"]').forEach(p=>p.style.display='none');
+    // Pattern A: sp-tabs — panes มี data-tabcontent
+    const byAttr=document.querySelectorAll('[data-tabcontent="'+prefix+'"]');
+    if(byAttr.length>0){
+      byAttr.forEach(p=>p.style.display='none');
+    } else {
+      // Pattern B: page-tabs — panes มี
+      document.querySelectorAll('[data-tabpane="'+prefix+'"]').forEach(p=>p.style.display='none');
+    }
   }
   const pane=document.getElementById(contentId);
   if(pane)pane.style.display='block';
@@ -554,6 +810,454 @@ function switchTab(btn,contentId){
     const months=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
     chip.textContent='📅 '+days[d.getDay()]+' '+d.getDate()+' '+months[d.getMonth()]+' '+(d.getFullYear()+543);
   }
+})();
+
+// Real-time clock
+(function startClock(){
+  const chip=document.getElementById('date-chip');
+  if(!chip)return;
+  function update(){
+    const d=new Date();
+    const days=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
+    const months=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    const be=d.getFullYear()+543;
+    const hh=String(d.getHours()).padStart(2,'0');
+    const mm=String(d.getMinutes()).padStart(2,'0');
+    chip.textContent='📅 '+days[d.getDay()]+' '+d.getDate()+' '+months[d.getMonth()]+' '+be+' '+hh+':'+mm;
+  }
+  update();
+  setInterval(update,30000);
+})();
+
+
+// ─── Scroll to top ───
+(function(){
+  const btn = document.createElement('button');
+  btn.id = 'scroll-top';
+  btn.textContent = '↑';
+  btn.title = 'กลับขึ้นด้านบน';
+  btn.onclick = () => document.getElementById('content').scrollTo({top:0,behavior:'smooth'});
+  document.body.appendChild(btn);
+  const content = document.getElementById('content');
+  if(content) content.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', content.scrollTop > 300);
+  });
+})();
+
+// ─── Keyboard shortcuts ───
+(function(){
+  const SHORTCUTS = [
+    ['d','แดชบอร์ด','dashboard.html'],
+    ['a','คำขออนุมัติ','approvals.html'],
+    ['e','ข้อมูลพนักงาน','employees.html'],
+    ['l','ลางาน & OT','leave.html'],
+    ['c','เช็คอิน','checkin.html'],
+    ['p','ประเมินผล','performance.html'],
+    ['r','รายงาน','reports.html'],
+    ['s','ตั้งค่า','settings.html'],
+    ['Escape','ปิด overlay',''],
+    ['?','แสดง shortcuts',''],
+  ];
+  
+  // สร้าง overlay
+  const ov = document.createElement('div');
+  ov.id = 'ks-overlay';
+  ov.innerHTML = `<div id="ks-box">
+    <h3>⌨️ Keyboard Shortcuts</h3>
+    <div class="ks-grid">
+      ${SHORTCUTS.map(([k,d,])=>`
+      <div class="ks-row">
+        <span class="ks-key">${k}</span>
+        <span class="ks-desc">${d}</span>
+      </div>`).join('')}
+    </div>
+    <div style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center">กด Esc หรือคลิกด้านนอกเพื่อปิด</div>
+  </div>`;
+  ov.addEventListener('click', e => { if(e.target===ov) ov.classList.remove('open'); });
+  document.body.appendChild(ov);
+  
+  document.addEventListener('keydown', e => {
+    const tag = document.activeElement.tagName;
+    if(['INPUT','TEXTAREA','SELECT'].includes(tag)) return;
+    if(e.key === '?') { ov.classList.toggle('open'); return; }
+    if(e.key === 'Escape') { ov.classList.remove('open'); return; }
+    // Navigation shortcuts
+    if(e.altKey || e.ctrlKey || e.metaKey) return;
+    const nav = SHORTCUTS.find(([k])=>k===e.key);
+    if(nav && nav[2]) window.location.href = nav[2];
+  });
+})();
+
+// ─── Search autocomplete ───
+(function(){
+  const wrap = document.querySelector('.topbar-search');
+  const inp  = wrap && wrap.querySelector('input');
+  if(!inp) return;
+  
+  const PAGES = [
+    {icon:'🏠',label:'แดชบอร์ด',href:'dashboard.html'},
+    {icon:'📋',label:'คำขออนุมัติ',href:'approvals.html'},
+    {icon:'🔔',label:'การแจ้งเตือน',href:'notifications.html'},
+    {icon:'👥',label:'ข้อมูลพนักงาน',href:'employees.html'},
+    {icon:'🏢',label:'โครงสร้างองค์กร',href:'orgchart.html'},
+    {icon:'🗂️',label:'เอกสาร HR',href:'documents.html'},
+    {icon:'💳',label:'เงินเดือน & Payslip',href:'payroll.html'},
+    {icon:'🎒',label:'Onboarding / Offboarding',href:'onboarding.html'},
+    {icon:'⏰',label:'เช็คอิน / เช็คเอาท์',href:'checkin.html'},
+    {icon:'🗓️',label:'ลางาน & OT',href:'leave.html'},
+    {icon:'📅',label:'ตารางกะงาน',href:'shifts.html'},
+    {icon:'🎯',label:'ประเมินผล KPI',href:'performance.html'},
+    {icon:'📚',label:'ฝึกอบรม / LMS',href:'training.html'},
+    {icon:'🔍',label:'สรรหาพนักงาน',href:'recruitment.html'},
+    {icon:'🚗',label:'จองรถ',href:'carbooking.html'},
+    {icon:'📦',label:'เบิกเครื่องเขียน',href:'inventory.html'},
+    {icon:'💰',label:'เบิกค่าใช้จ่าย',href:'expense.html'},
+    {icon:'🔧',label:'แจ้งซ่อมอาคาร',href:'facility.html'},
+    {icon:'📊',label:'รายงาน & Analytics',href:'reports.html'},
+    {icon:'🛡️',label:'PDPA Center',href:'pdpa.html'},
+    {icon:'🔑',label:'Audit Log',href:'auditlog.html'},
+    {icon:'⚙️',label:'ตั้งค่าระบบ',href:'settings.html'},
+  ];
+  
+  const dropdown = document.createElement('div');
+  dropdown.className = 'search-results-dropdown';
+  wrap.appendChild(dropdown);
+  
+  inp.addEventListener('focus', () => wrap.classList.add('searching'));
+  inp.addEventListener('blur', () => { 
+    wrap.classList.remove('searching');
+    setTimeout(() => dropdown.classList.remove('open'), 150);
+  });
+  
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    if(!q) { dropdown.classList.remove('open'); return; }
+    const results = PAGES.filter(p => p.label.toLowerCase().includes(q)).slice(0,6);
+    if(!results.length) { dropdown.classList.remove('open'); return; }
+    dropdown.innerHTML = results.map(p=>
+      `<a class="sr-item" href="${p.href}">
+        <span class="sr-item-icon">${p.icon}</span>
+        <span>${p.label}</span>
+        <span class="sr-item-page">หน้า</span>
+      </a>`
+    ).join('');
+    dropdown.classList.add('open');
+  });
+  
+  inp.addEventListener('keydown', e => {
+    if(e.key==='Escape'){ inp.value=''; dropdown.classList.remove('open'); inp.blur(); }
+  });
+})();
+
+
+// ── Toast system ──────────────────────────────────────────────────
+window._toastContainer = (function(){
+  let el = document.getElementById('toast-container');
+  if(!el){ el=document.createElement('div'); el.id='toast-container'; document.body.appendChild(el); }
+  return el;
+})();
+
+function showToast(msg, type='success', duration=3000){
+  const icons = {success:'✅',error:'❌',warn:'⚠️',info:'ℹ️'};
+  const t = document.createElement('div');
+  t.className = 'toast toast-'+type;
+  t.innerHTML = '<span class="toast-icon">'+icons[type]+'</span><span style="flex:1">'+msg+'</span><button class="toast-close" onclick="dismissToast(this.parentElement)">✕</button>';
+  window._toastContainer.appendChild(t);
+  if(duration > 0) setTimeout(()=>dismissToast(t), duration);
+  return t;
+}
+function dismissToast(t){
+  if(!t||t.classList.contains('hide'))return;
+  t.classList.add('hide');
+  setTimeout(()=>t.remove(), 280);
+}
+
+// ── Confirm dialog ────────────────────────────────────────────────
+(function(){
+  const ov = document.createElement('div'); ov.id='confirm-overlay';
+  ov.innerHTML = `<div id="confirm-box">
+    <div id="confirm-icon">❓</div>
+    <div id="confirm-title">ยืนยันการดำเนินการ</div>
+    <div id="confirm-msg">คุณต้องการดำเนินการนี้ใช่ไหม?</div>
+    <div id="confirm-btns">
+      <button id="confirm-cancel" class="btn btn-gray" style="flex:1">ยกเลิก</button>
+      <button id="confirm-ok" class="btn btn-primary" style="flex:2">ยืนยัน</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  document.getElementById('confirm-cancel').onclick = ()=>{ ov.classList.remove('open'); window._confirmReject&&window._confirmReject(); };
+  ov.addEventListener('click', e=>{ if(e.target===ov){ ov.classList.remove('open'); window._confirmReject&&window._confirmReject(); }});
+})();
+
+function showConfirm(title, msg, icon='❓'){
+  return new Promise((resolve, reject)=>{
+    window._confirmReject = ()=>resolve(false);
+    document.getElementById('confirm-icon').textContent = icon;
+    document.getElementById('confirm-title').textContent = title;
+    document.getElementById('confirm-msg').textContent = msg;
+    document.getElementById('confirm-ok').onclick = ()=>{
+      document.getElementById('confirm-overlay').classList.remove('open');
+      resolve(true);
+    };
+    document.getElementById('confirm-overlay').classList.add('open');
+  });
+}
+
+// ── Mobile hamburger ──────────────────────────────────────────────
+(function(){
+  // สร้าง hamburger button ใน topbar
+  const topbar = document.getElementById('topbar');
+  if(!topbar) return;
+  const btn = document.createElement('button');
+  btn.id='mobile-menu-btn';
+  btn.title='เมนู';
+  btn.innerHTML='<span></span><span></span><span></span>';
+  topbar.insertBefore(btn, topbar.firstChild);
+
+  const backdrop = document.createElement('div');
+  backdrop.className='mobile-backdrop';
+  document.body.appendChild(backdrop);
+
+  const sidebar = document.getElementById('sidebar');
+  btn.addEventListener('click',()=>{
+    sidebar.classList.toggle('mobile-open');
+    backdrop.classList.toggle('open');
+  });
+  backdrop.addEventListener('click',()=>{
+    sidebar.classList.remove('mobile-open');
+    backdrop.classList.remove('open');
+  });
+
+  // ปิดเมื่อคลิก nav link (mobile)
+  sidebar.querySelectorAll('.nav-item').forEach(a=>{
+    a.addEventListener('click',()=>{
+      if(window.innerWidth<=768){
+        sidebar.classList.remove('mobile-open');
+        backdrop.classList.remove('open');
+      }
+    });
+  });
+})();
+
+// ── Hook approve/reject buttons ───────────────────────────────────
+document.querySelectorAll('button').forEach(btn=>{
+  const txt = btn.textContent.trim();
+  if(txt==='✓ อนุมัติ' || txt==='✓'){
+    btn.addEventListener('click', async function(e){
+      e.stopPropagation();
+      const ok = await showConfirm('ยืนยันการอนุมัติ','คุณต้องการอนุมัติรายการนี้ใช่ไหม?','✅');
+      if(ok){ this.closest('tr')&&(this.closest('tr').style.opacity='.5'); showToast('อนุมัติเรียบร้อยแล้ว'); }
+    });
+  }
+  if(txt==='✗ ปฏิเสธ' || txt==='✗'){
+    btn.addEventListener('click', async function(e){
+      e.stopPropagation();
+      const ok = await showConfirm('ยืนยันการปฏิเสธ','คุณต้องการปฏิเสธรายการนี้ใช่ไหม?','❌');
+      if(ok){ this.closest('tr')&&(this.closest('tr').style.opacity='.5'); showToast('ปฏิเสธรายการแล้ว','warn'); }
+    });
+  }
+});
+
+// Hook save/submit buttons
+document.querySelectorAll('.modal-foot .btn-primary').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const modal = this.closest('.modal');
+    if(!modal) return;
+    showToast('บันทึกข้อมูลเรียบร้อย 🎉');
+    // ปิด modal หลัง 300ms
+    setTimeout(()=>{ const ov=modal.closest('.modal-overlay'); if(ov) ov.classList.remove('open'); }, 300);
+  });
+});
+
+
+// Dashboard Charts
+(function(){
+  // Attendance bar chart
+  const ctx1 = document.getElementById('dash-checkin-chart');
+  if(ctx1) new Chart(ctx1, {
+    type:'bar',
+    data:{
+      labels:['จ','อ','พ','พฤ','ศ','ส','อา'],
+      datasets:[{
+        label:'เช็คอิน (%)',
+        data:[88,92,85,93,30,20,12],
+        backgroundColor:['#74ddb0','#74ddb0','#74ddb0','#1db87a','#fca5a5','#e2f0e9','#e2f0e9'],
+        borderRadius:4,borderSkipped:false,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}},
+      scales:{
+        y:{display:false,min:0,max:110},
+        x:{grid:{display:false},ticks:{font:{family:'Prompt',size:10},color:'#8aab98'}}
+      }
+    }
+  });
+})();
+
+
+// ── Export CSV (real download) ──────────────────────────────────────
+function exportTableCSV(tableSelector, filename){
+  const tbl = document.querySelector(tableSelector || '.tbl');
+  if(!tbl){ showToast('ไม่พบตารางข้อมูล','warn'); return; }
+  const rows = [...tbl.querySelectorAll('tr')];
+  const csv  = rows.map(row=>{
+    return [...row.querySelectorAll('th,td')].map(cell=>{
+      let t = cell.innerText.replace(/[\r\n]+/g,' ').trim();
+      t = t.replace(/"/g,'""');
+      return /,|"|\n/.test(t)?'"'+t+'"':t;
+    }).join(',');
+  }).join('\n');
+  const bom = '﻿'; // UTF-8 BOM for Thai Excel
+  const blob = new Blob([bom+csv],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (filename||'export')+'-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('📥 ดาวน์โหลด '+a.download+' สำเร็จ');
+}
+
+// ── Print page ───────────────────────────────────────────────────────
+function printPage(title){
+  const orig = document.title;
+  if(title) document.title = title + ' — HR OneFlow';
+  window.print();
+  document.title = orig;
+}
+
+// ── Button loading state ──────────────────────────────────────────────
+function setLoading(btn, loading, text){
+  if(loading){
+    btn._origHTML = btn.innerHTML;
+    btn.classList.add('btn-loading');
+    btn.innerHTML = '<span class="spinner"></span>' + (text||'กำลังดำเนินการ...');
+  } else {
+    btn.classList.remove('btn-loading');
+    btn.innerHTML = btn._origHTML || text || btn.innerHTML;
+  }
+}
+
+// ── Form validation ───────────────────────────────────────────────────
+function validateForm(form){
+  let ok = true;
+  form.querySelectorAll('.form-control[required], .form-control[data-required]').forEach(inp=>{
+    const v = inp.value.trim();
+    const grp = inp.closest('.form-group');
+    // ลบ error เก่า
+    grp && grp.querySelectorAll('.field-error').forEach(e=>e.remove());
+    inp.classList.remove('is-invalid','is-valid');
+    if(!v){
+      inp.classList.add('is-invalid');
+      const err = document.createElement('div');
+      err.className='field-error';
+      err.textContent='กรุณากรอกข้อมูล';
+      grp && grp.appendChild(err);
+      ok=false;
+    } else if(inp.type==='email' && !/^[^@]+@[^@]+.[^@]+$/.test(v)){
+      inp.classList.add('is-invalid');
+      const err=document.createElement('div');err.className='field-error';
+      err.textContent='รูปแบบอีเมลไม่ถูกต้อง';
+      grp && grp.appendChild(err);ok=false;
+    } else {
+      inp.classList.add('is-valid');
+    }
+  });
+  if(!ok) showToast('กรุณากรอกข้อมูลให้ครบถ้วน','warn');
+  return ok;
+}
+
+// ── Dark mode Chart sync ──────────────────────────────────────────────
+(function syncChartsDarkMode(){
+  function updateChartColors(){
+    const dark = document.body.classList.contains('dark');
+    const textColor    = dark ? '#7db898' : '#8aab98';
+    const gridColor    = dark ? 'rgba(42,69,53,.5)' : 'rgba(196,225,212,.35)';
+    const tooltipBg    = dark ? '#1c2f24' : '#ffffff';
+    Chart.defaults.color = textColor;
+    Chart.defaults.plugins.tooltip.backgroundColor = tooltipBg;
+    Chart.defaults.plugins.tooltip.titleColor       = dark?'#e6f4ed':'#1a2e25';
+    Chart.defaults.plugins.tooltip.bodyColor        = dark?'#7db898':'#4d7060';
+    Chart.defaults.plugins.tooltip.borderColor      = dark?'#2a4535':'#c4e1d4';
+    Chart.defaults.plugins.tooltip.borderWidth = 1;
+    Chart.defaults.scale.grid.color = gridColor;
+    // Re-render all charts
+    if(typeof Chart !== 'undefined'){
+      Object.values(Chart.instances||{}).forEach(chart=>{
+        try{ chart.options.scales && Object.values(chart.options.scales).forEach(s=>{
+          if(s.grid) s.grid.color=gridColor;
+          if(s.ticks) s.ticks.color=textColor;
+        });
+        chart.options.plugins && chart.options.plugins.legend && chart.options.plugins.legend.labels && (chart.options.plugins.legend.labels.color=textColor);
+        chart.update('none'); }catch(e){}
+      });
+    }
+  }
+  if(typeof Chart !== 'undefined'){
+    updateChartColors(); // initial
+    const obs = new MutationObserver(()=>updateChartColors());
+    obs.observe(document.body,{attributes:true,attributeFilter:['class']});
+  }
+})();
+
+// ── Table scroll detection ────────────────────────────────────────────
+document.querySelectorAll('.tbl-wrap').forEach(wrap=>{
+  const tbl = wrap.querySelector('.tbl');
+  if(!tbl) return;
+  const check=()=>{ wrap.classList.toggle('scrollable', tbl.scrollWidth > wrap.clientWidth+4); };
+  check();
+  new ResizeObserver(check).observe(wrap);
+  wrap.addEventListener('scroll',check);
+});
+
+// ── Hook Export buttons (ทุก btn ที่ข้อความมีคำว่า Export) ──────────
+document.querySelectorAll('button').forEach(btn=>{
+  const txt = btn.textContent.trim();
+  if((txt.includes('Export') || txt.includes('⬇')) && !btn.dataset.exportHooked){
+    btn.dataset.exportHooked='1';
+    btn.addEventListener('click', function(){
+      exportTableCSV(null, document.title.replace(/ — .*/,'').trim());
+    });
+  }
+});
+
+// ── Hook Print buttons ────────────────────────────────────────────────
+document.querySelectorAll('button').forEach(btn=>{
+  if((btn.textContent.trim().includes('Print') || btn.textContent.trim().includes('พิมพ์') || btn.textContent.trim().includes('🖨'))  && !btn.dataset.printHooked){
+    btn.dataset.printHooked='1';
+    btn.addEventListener('click',()=>printPage());
+  }
+});
+
+// ── Loading on modal submit ───────────────────────────────────────────
+document.querySelectorAll('.modal-foot .btn-primary').forEach(btn=>{
+  if(btn.dataset.loadHooked) return;
+  btn.dataset.loadHooked='1';
+  btn.addEventListener('click', function(){
+    setLoading(this,true);
+    setTimeout(()=>setLoading(this,false),1400);
+  });
+});
+
+
+// Dashboard sparkline charts
+(function(){
+  Chart.defaults.font.family='Prompt';
+  const spark1 = document.getElementById('dash-payroll-spark');
+  if(spark1) new Chart(spark1,{type:'line',data:{
+    labels:['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.'],
+    datasets:[{data:[4200000,4350000,4500000,4700000,4824580],borderColor:'#1db87a',backgroundColor:'rgba(29,184,122,.1)',tension:.4,fill:true,pointRadius:2,pointBackgroundColor:'#1db87a'}]
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'฿'+(c.raw/1000000).toFixed(2)+'M'}}},
+    scales:{x:{display:false},y:{display:false}}}
+  });
+  const spark2 = document.getElementById('dash-kpi-spark');
+  if(spark2) new Chart(spark2,{type:'line',data:{
+    labels:['Q2-23','Q3-23','Q4-23','Q1-24','Q2-24','Q1-25','Q2-25'],
+    datasets:[{data:[76,78,79,79,80,80,82],borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.1)',tension:.4,fill:true,pointRadius:2,pointBackgroundColor:'#3b82f6'}]
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}},
+    scales:{x:{display:false},y:{display:false,min:70,max:90}}}
+  });
 })();
 </script>
 </body>
