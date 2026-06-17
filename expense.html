@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>เบิกค่าใช้จ่าย — HR OneFlow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --mint-50:#f0faf5;--mint-100:#d6f4e5;--mint-200:#aaebcc;
+  --mint-300:#74ddb0;--mint-400:#3ecb91;--mint-500:#1db87a;
+  --mint-600:#159860;--mint-700:#0e7a4d;--mint-800:#0a5e3b;
+  --bg:#f6fdf9;--bg2:#edf7f2;
+  --sidebar-bg:#0e7a4d;
+  --text-primary:#1a2e25;--text-secondary:#4d7060;--text-muted:#8aab98;
+  --border:#c4e1d4;--border-light:#e2f0e9;
+  --card-bg:#ffffff;--accent:#1db87a;
+  --sidebar-width:240px;--topbar-h:60px;
+  --radius:10px;
+  --shadow:0 1px 4px rgba(14,122,77,.08);
+  --shadow-md:0 4px 16px rgba(14,122,77,.12);
+}
+body.dark{
+  --bg:#0f1e17;--bg2:#162b1f;--card-bg:#1c2f24;
+  --text-primary:#e6f4ed;--text-secondary:#7db898;--text-muted:#4a7360;
+  --border:#2a4535;--border-light:#1e3329;
+  --sidebar-bg:#071a10;
+}
+body{font-family:'Prompt',sans-serif;background:var(--bg);color:var(--text-primary);display:flex;min-height:100vh;font-size:14px}
+a{text-decoration:none;color:inherit}
+#sidebar{width:var(--sidebar-width);background:var(--sidebar-bg);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:width .25s ease;overflow:hidden}
+#sidebar.collapsed{width:60px}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer;user-select:none;flex-shrink:0}
+.logo-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+.logo-text{font-size:15px;font-weight:700;color:#fff;white-space:nowrap;transition:opacity .2s,width .2s}
+.logo-sub{font-size:10px;color:rgba(255,255,255,.5);font-weight:300}
+#sidebar.collapsed .logo-text,#sidebar.collapsed .logo-sub{opacity:0;width:0;overflow:hidden}
+.sidebar-toggle{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.18);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-left:auto;transition:background .2s}
+.sidebar-toggle:hover{background:rgba(255,255,255,.3)}
+.sidebar-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:8px 0}
+.sidebar-scroll::-webkit-scrollbar{width:3px}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
+.sidebar-label{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.8px;padding:10px 16px 3px;white-space:nowrap;font-weight:500;transition:opacity .2s}
+#sidebar.collapsed .sidebar-label{opacity:0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;color:rgba(255,255,255,.75);font-size:13px;border-left:3px solid transparent;transition:background .15s;white-space:nowrap}
+.nav-item:hover{background:rgba(255,255,255,.08)}
+.nav-item.active{background:rgba(255,255,255,.15);color:#fff;border-left-color:#74ddb0;font-weight:500}
+.nav-icon{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-text{transition:opacity .2s,width .2s;overflow:hidden;white-space:nowrap}
+.nav-badge{margin-left:auto;background:rgba(255,255,255,.2);color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:600;flex-shrink:0;transition:opacity .2s}
+#sidebar.collapsed .nav-text,#sidebar.collapsed .nav-badge{opacity:0;width:0;overflow:hidden}
+.sidebar-bottom{border-top:1px solid rgba(255,255,255,.1);padding:10px 0;flex-shrink:0}
+.user-card{display:flex;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;transition:background .15s}
+.user-card:hover{background:rgba(255,255,255,.08)}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff}
+.user-info{min-width:0;transition:opacity .2s,width .2s}
+.user-name{font-size:12px;color:#fff;font-weight:500;white-space:nowrap}
+.user-role{font-size:10px;color:rgba(255,255,255,.5)}
+#sidebar.collapsed .user-info{opacity:0;width:0;overflow:hidden}
+#main{flex:1;display:flex;flex-direction:column;min-width:0;margin-left:var(--sidebar-width);transition:margin-left .25s ease}
+body.sb-collapsed #main{margin-left:60px}
+#topbar{height:var(--topbar-h);background:var(--card-bg);border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px;padding:0 20px;flex-shrink:0;position:sticky;top:0;z-index:50}
+.topbar-breadcrumb{font-size:13px;color:var(--text-secondary);display:flex;align-items:center;gap:6px}
+.breadcrumb-current{color:var(--text-primary);font-weight:500;white-space:nowrap}
+.topbar-search{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:6px 14px;width:240px;margin-left:auto}
+.topbar-search input{border:none;background:transparent;font-family:'Prompt',sans-serif;font-size:13px;color:var(--text-primary);width:100%;outline:none}
+.topbar-search input::placeholder{color:var(--text-muted)}
+.topbar-actions{display:flex;align-items:center;gap:6px}
+.action-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--card-bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--text-secondary);transition:all .15s;position:relative;text-decoration:none}
+.action-btn:hover{background:var(--bg2);color:var(--accent)}
+.notif-dot{position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;background:#f59e0b;border:2px solid var(--card-bg)}
+.date-chip{background:var(--mint-50);border:1px solid var(--mint-200);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--mint-700);font-weight:500;white-space:nowrap}
+#content{flex:1;overflow-y:auto;padding:22px 24px;display:flex;flex-direction:column;gap:18px}
+#content::-webkit-scrollbar{width:5px}
+#content::-webkit-scrollbar-thumb{background:var(--mint-200);border-radius:3px}
+.page-footer{text-align:center;padding:8px 0;font-size:11px;color:var(--text-muted);margin-top:8px}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.page-title{font-size:18px;font-weight:600;color:var(--text-primary)}
+.page-subtitle{font-size:12px;color:var(--text-secondary);margin-top:3px}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:8px 16px;font-family:'Prompt',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;border:none}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--mint-600)}
+.btn-outline{background:transparent;color:var(--accent);border:1px solid var(--mint-300)}
+.btn-outline:hover{background:var(--mint-50)}
+.btn-gray{background:var(--bg2);color:var(--text-secondary);border:1px solid var(--border)}
+.btn-gray:hover{border-color:var(--mint-400);color:var(--mint-700)}
+.btn-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.btn-sm{padding:5px 12px;font-size:12px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi-card{background:var(--card-bg);border-radius:var(--radius);border:1px solid var(--border-light);padding:16px 18px;position:relative;overflow:hidden;transition:box-shadow .15s}
+.kpi-card:hover{box-shadow:var(--shadow-md)}
+.kpi-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:var(--radius) 0 0 var(--radius)}
+.kpi-card.green::before{background:var(--mint-400)}
+.kpi-card.yellow::before{background:#f59e0b}
+.kpi-card.blue::before{background:#3b82f6}
+.kpi-card.red::before{background:#ef4444}
+.kpi-card.purple::before{background:#8b5cf6}
+.kpi-label{font-size:11px;color:var(--text-muted);font-weight:500;letter-spacing:.3px;text-transform:uppercase;margin-bottom:6px}
+.kpi-value{font-size:28px;font-weight:700;line-height:1;margin-bottom:6px}
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;border-radius:20px;padding:2px 8px;width:fit-content}
+.tag-up{background:#d1fae5;color:#065f46}
+.tag-down{background:#fee2e2;color:#991b1b}
+.tag-neutral{background:var(--mint-100);color:var(--mint-800)}
+.tag-info{background:#dbeafe;color:#1e40af}
+.tag-warn{background:#fef3c7;color:#92400e}
+.tag-purple{background:#ede9fe;color:#5b21b6}
+.kpi-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.kpi-icon.green{background:var(--mint-100)}
+.kpi-icon.yellow{background:#fef3c7}
+.kpi-icon.blue{background:#dbeafe}
+.kpi-icon.red{background:#fee2e2}
+.kpi-icon.purple{background:#ede9fe}
+.section-card{background:var(--card-bg);border-radius:var(--radius);border:1px solid var(--border-light);overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border-light)}
+.card-title{font-size:14px;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.card-icon{width:26px;height:26px;border-radius:6px;background:var(--mint-100);color:var(--mint-700);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.card-link{font-size:12px;color:var(--accent);cursor:pointer;font-weight:500}
+.card-link:hover{text-decoration:underline}
+.card-body{padding:16px 18px}
+.tbl-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{padding:10px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.5px;background:var(--bg);border-bottom:1px solid var(--border-light);white-space:nowrap;text-transform:uppercase}
+.tbl td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--border-light);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--mint-50);cursor:pointer}
+.tbl td.muted{color:var(--text-secondary);font-size:12px}
+.badge{display:inline-flex;align-items:center;border-radius:20px;padding:2px 9px;font-size:11px;font-weight:500;white-space:nowrap;gap:3px}
+.bdg-green{background:var(--mint-100);color:var(--mint-800)}
+.bdg-yellow{background:#fef3c7;color:#92400e}
+.bdg-blue{background:#dbeafe;color:#1d4ed8}
+.bdg-purple{background:#ede9fe;color:#5b21b6}
+.bdg-red{background:#fee2e2;color:#991b1b}
+.bdg-gray{background:#f3f4f6;color:#4b5563}
+.bdg-orange{background:#ffedd5;color:#9a3412}
+.sdot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.sdot-green{background:#10b981}
+.sdot-yellow{background:#f59e0b}
+.sdot-red{background:#ef4444}
+.sdot-gray{background:#9ca3af}
+.sdot-blue{background:#3b82f6}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:500;color:var(--text-secondary)}
+.form-control{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'Prompt',sans-serif;font-size:13px;color:var(--text-primary);outline:none;transition:border .15s;width:100%}
+.form-control:focus{border-color:var(--mint-400);background:var(--card-bg)}
+select.form-control{cursor:pointer}
+textarea.form-control{resize:vertical;min-height:80px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--card-bg);border-radius:14px;width:520px;max-width:calc(100vw - 40px);max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:translateY(20px);transition:transform .25s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border-light);flex-shrink:0}
+.modal-title{font-size:15px;font-weight:600}
+.modal-close{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s}
+.modal-body{padding:20px 22px;overflow-y:auto;flex:1}
+.modal-foot{padding:14px 22px;border-top:1px solid var(--border-light);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
+.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s}
+.panel-overlay.open{opacity:1;pointer-events:auto}
+.slide-panel{position:fixed;right:0;top:0;bottom:0;width:460px;background:var(--card-bg);box-shadow:-4px 0 24px rgba(0,0,0,.12);z-index:201;transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column;overflow:hidden}
+.slide-panel.open{transform:translateX(0)}
+.sp-head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border-light);flex-shrink:0}
+.sp-title{font-size:15px;font-weight:600}
+.sp-close{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s;margin-left:auto}
+.sp-tabs{display:flex;border-bottom:1px solid var(--border-light);flex-shrink:0;padding:0 20px}
+.sp-tab{padding:10px 14px;font-size:13px;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.sp-tab:hover{color:var(--text-primary)}
+.sp-tab.active{color:var(--mint-700);border-bottom-color:var(--mint-500);font-weight:500}
+.sp-body{flex:1;overflow-y:auto;padding:20px}
+.sp-body::-webkit-scrollbar{width:4px}
+.sp-body::-webkit-scrollbar-thumb{background:var(--mint-200);border-radius:2px}
+.sp-foot{padding:14px 20px;border-top:1px solid var(--border-light);display:flex;gap:8px;background:var(--bg);flex-shrink:0}
+.row-2{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
+.row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.row-eq{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.empty-state{text-align:center;padding:48px 24px;color:var(--text-muted)}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.empty-title{font-size:15px;font-weight:500;color:var(--text-secondary);margin-bottom:6px}
+.pagination{display:flex;align-items:center;gap:6px;padding:12px 16px;border-top:1px solid var(--border-light);background:var(--bg)}
+.pg-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:var(--card-bg);cursor:pointer;font-size:12px;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.pg-btn:hover{border-color:var(--mint-400);color:var(--mint-600)}
+.pg-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.pg-info{font-size:12px;color:var(--text-muted);margin-left:auto}
+.info-section-title{font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.6px;text-transform:uppercase;margin:14px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border-light)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-field{display:flex;flex-direction:column;gap:3px}
+.info-label{font-size:11px;color:var(--text-muted)}
+.info-value{font-size:13px;color:var(--text-primary);font-weight:500}
+.page-tabs{display:flex;gap:0;border-bottom:2px solid var(--border-light);margin-bottom:18px}
+.page-tab{padding:10px 18px;font-size:13px;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap}
+.page-tab:hover{color:var(--text-primary)}
+.page-tab.active{color:var(--mint-700);border-bottom-color:var(--mint-500);font-weight:500}
+.timeline{display:flex;flex-direction:column;position:relative;padding-left:22px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--border-light)}
+.tl-item{display:flex;gap:14px;padding-bottom:18px;position:relative}
+.tl-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;z-index:1;margin-top:2px;margin-left:-22px}
+.tl-dot.active{background:var(--mint-500);border:3px solid var(--card-bg);box-shadow:0 0 0 2px var(--mint-300)}
+.tl-dot.done{background:var(--mint-300);border:3px solid var(--card-bg)}
+.tl-dot.pending{background:#f59e0b;border:3px solid var(--card-bg)}
+.tl-dot.gray{background:var(--text-muted);border:3px solid var(--card-bg)}
+.tl-content{flex:1}
+.tl-title{font-size:13px;font-weight:500;color:var(--text-primary)}
+.tl-detail{font-size:12px;color:var(--text-secondary);margin-top:2px}
+.tl-time{font-size:11px;color:var(--text-muted);margin-top:2px}
+.stats-bar{display:flex;background:var(--card-bg);border:1px solid var(--border-light);border-radius:var(--radius);overflow:hidden}
+.stat-cell{flex:1;padding:14px 16px;text-align:center;border-right:1px solid var(--border-light)}
+.stat-cell:last-child{border-right:none}
+.stat-num{font-size:22px;font-weight:700}
+.stat-lbl{font-size:11px;color:var(--text-secondary);margin-top:2px}
+@media(max-width:1280px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1024px){.row-2{grid-template-columns:1fr}.row-3{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  #sidebar{width:60px}
+  #sidebar .logo-text,#sidebar .logo-sub,#sidebar .nav-text,#sidebar .nav-badge,#sidebar .sidebar-label,#sidebar .user-info{opacity:0;width:0;overflow:hidden}
+  #main{margin-left:60px}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .topbar-search{display:none}
+  #content{padding:14px 16px}
+  .slide-panel{width:100%}
+}
+@media(max-width:480px){.kpi-grid{grid-template-columns:1fr}.row-3{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav id="sidebar">
+  <div class="sidebar-logo" onclick="toggleSidebar()">
+    <div class="logo-icon">HR</div>
+    <div class="logo-text">HR OneFlow<div class="logo-sub">ENTERPRISE · v2.0</div></div>
+    <button class="sidebar-toggle" id="sb-toggle">◀</button>
+  </div>
+  <div class="sidebar-scroll"><div class="sidebar-label">OVERVIEW</div>
+<a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-text">แดชบอร์ด</span></a>
+<a class="nav-item" href="approvals.html"><span class="nav-icon">📋</span><span class="nav-text">คำขออนุมัติ</span><span class="nav-badge">12</span></a>
+<a class="nav-item" href="notifications.html"><span class="nav-icon">🔔</span><span class="nav-text">การแจ้งเตือน</span><span class="nav-badge">5</span></a>
+<div class="sidebar-label">CORE HR</div>
+<a class="nav-item" href="employees.html"><span class="nav-icon">👥</span><span class="nav-text">ข้อมูลพนักงาน</span></a>
+<a class="nav-item" href="orgchart.html"><span class="nav-icon">🏢</span><span class="nav-text">โครงสร้างองค์กร</span></a>
+<a class="nav-item" href="documents.html"><span class="nav-icon">🗂️</span><span class="nav-text">เอกสาร HR</span></a>
+<a class="nav-item" href="onboarding.html"><span class="nav-icon">🎒</span><span class="nav-text">Onboarding/Off</span></a>
+<div class="sidebar-label">TIME & LEAVE</div>
+<a class="nav-item" href="checkin.html"><span class="nav-icon">⏰</span><span class="nav-text">เช็คอิน/เช็คเอาท์</span></a>
+<a class="nav-item" href="leave.html"><span class="nav-icon">🗓️</span><span class="nav-text">ลางาน & OT</span></a>
+<a class="nav-item" href="shifts.html"><span class="nav-icon">📅</span><span class="nav-text">ตารางกะงาน</span></a>
+<div class="sidebar-label">DEVELOPMENT</div>
+<a class="nav-item" href="performance.html"><span class="nav-icon">🎯</span><span class="nav-text">ประเมินผล (KPI)</span></a>
+<a class="nav-item" href="training.html"><span class="nav-icon">📚</span><span class="nav-text">ฝึกอบรม / LMS</span></a>
+<a class="nav-item" href="recruitment.html"><span class="nav-icon">🔍</span><span class="nav-text">สรรหาพนักงาน</span></a>
+<div class="sidebar-label">ADMIN SERVICE</div>
+<a class="nav-item" href="carbooking.html"><span class="nav-icon">🚗</span><span class="nav-text">จองรถ</span></a>
+<a class="nav-item" href="inventory.html"><span class="nav-icon">📦</span><span class="nav-text">เบิกเครื่องเขียน</span></a>
+<a class="nav-item active" href="expense.html"><span class="nav-icon">💰</span><span class="nav-text">เบิกค่าใช้จ่าย</span></a>
+<a class="nav-item" href="facility.html"><span class="nav-icon">🔧</span><span class="nav-text">แจ้งซ่อมอาคาร</span></a>
+<div class="sidebar-label">REPORTS & SYSTEM</div>
+<a class="nav-item" href="reports.html"><span class="nav-icon">📊</span><span class="nav-text">รายงาน & Analytics</span></a>
+<a class="nav-item" href="pdpa.html"><span class="nav-icon">🛡️</span><span class="nav-text">PDPA Center</span></a>
+<a class="nav-item" href="auditlog.html"><span class="nav-icon">🔑</span><span class="nav-text">Audit Log</span></a>
+<a class="nav-item" href="settings.html"><span class="nav-icon">⚙️</span><span class="nav-text">ตั้งค่าระบบ</span></a></div>
+  <div class="sidebar-bottom">
+    <div class="user-card">
+      <div class="user-avatar">สม</div>
+      <div class="user-info"><div class="user-name">สมชาย เจริญสุข</div><div class="user-role">HR Admin</div></div>
+    </div>
+  </div>
+</nav>
+<div id="main">
+  <header id="topbar">
+    <div class="topbar-breadcrumb">
+      <a href="dashboard.html" style="color:var(--text-secondary)">HR OneFlow</a>
+      <span style="color:var(--border)">›</span>
+      <span class="breadcrumb-current">Admin Service › เบิกค่าใช้จ่าย</span>
+    </div>
+    <div class="topbar-search"><span style="color:var(--text-muted);font-size:15px">🔍</span><input type="text" placeholder="ค้นหา..."></div>
+    <div class="topbar-actions">
+      <div class="date-chip" id="date-chip">📅 —</div>
+      <button class="action-btn" onclick="toggleDark()" title="Dark/Light">🌙</button>
+      <button class="action-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+      <a class="action-btn" href="notifications.html">🔔<span class="notif-dot"></span></a>
+      <div class="action-btn" style="padding:0;overflow:hidden"><div style="width:36px;height:36px;background:var(--mint-500);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff">สม</div></div>
+    </div>
+  </header>
+  <div id="content">
+    
+<div class="page-header">
+  <div><div class="page-title">💰 เบิกค่าใช้จ่าย</div>
+  <div class="page-subtitle">ยื่นใบเบิก, แนบใบเสร็จ, ติดตามสถานะ</div></div>
+  <div class="header-actions">
+    <button class="btn btn-outline">📊 สรุปประจำเดือน</button>
+    <button class="btn btn-primary" onclick="openModal('exp-modal')">+ ยื่นใบเบิก</button>
+  </div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card yellow"><div class="kpi-label">รออนุมัติ</div><div class="kpi-value">14</div><div class="kpi-icon yellow">⏳</div></div>
+  <div class="kpi-card green"><div class="kpi-label">อนุมัติเดือนนี้</div><div class="kpi-value">52</div><div class="kpi-icon green">✅</div></div>
+  <div class="kpi-card blue"><div class="kpi-label">ยอดรวมอนุมัติ</div><div class="kpi-value" style="font-size:22px">₿84,320</div><div class="kpi-icon blue">💳</div></div>
+  <div class="kpi-card red"><div class="kpi-label">ปฏิเสธ</div><div class="kpi-value">3</div><div class="kpi-icon red">❌</div></div>
+</div>
+
+<div class="page-tabs" data-tabgroup="exp">
+  <div class="page-tab active" data-tab onclick="switchTab(this,'exp-mine')">ของฉัน</div>
+  <div class="page-tab" data-tab onclick="switchTab(this,'exp-all')">ทั้งหมด (HR)</div>
+</div>
+
+<div id="exp-mine">
+<div class="section-card">
+  <div class="card-head"><div class="card-title"><div class="card-icon">📋</div>รายการใบเบิกของฉัน</div><button class="btn btn-sm btn-gray">⬇ Export</button></div>
+  <div class="tbl-wrap">
+  <table class="tbl">
+    <thead><tr><th>เลขที่</th><th>ประเภท</th><th>รายละเอียด</th><th>จำนวนเงิน</th><th>วันที่ยื่น</th><th>สถานะ</th><th>การดำเนินการ</th></tr></thead>
+    <tbody>
+    
+    <tr>
+      <td style="font-size:12px;color:var(--accent);font-weight:500">EXP-2568-041</td>
+      <td><span class="badge bdg-gray" style="font-size:10px">ค่าเดินทาง</span></td>
+      <td class="muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">ไปประชุมลูกค้า ABC (รถ+ทางด่วน)</td>
+      <td style="font-weight:600;color:var(--text-primary)">1,200 บ.</td>
+      <td class="muted">20 พ.ค. 68</td>
+      <td><span class="badge bdg-green">โอนแล้ว</span></td>
+      <td><button class="btn btn-sm btn-gray">👁</button></td>
+    </tr>
+    <tr>
+      <td style="font-size:12px;color:var(--accent);font-weight:500">EXP-2568-038</td>
+      <td><span class="badge bdg-gray" style="font-size:10px">ค่าอาหาร (OT)</span></td>
+      <td class="muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">OT วันเสาร์ 18 พ.ค.</td>
+      <td style="font-weight:600;color:var(--text-primary)">180 บ.</td>
+      <td class="muted">19 พ.ค. 68</td>
+      <td><span class="badge bdg-green">โอนแล้ว</span></td>
+      <td><button class="btn btn-sm btn-gray">👁</button></td>
+    </tr>
+    <tr>
+      <td style="font-size:12px;color:var(--accent);font-weight:500">EXP-2568-035</td>
+      <td><span class="badge bdg-gray" style="font-size:10px">ค่าโทรศัพท์</span></td>
+      <td class="muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">ค่า Internet roaming เชียงใหม่</td>
+      <td style="font-weight:600;color:var(--text-primary)">450 บ.</td>
+      <td class="muted">15 พ.ค. 68</td>
+      <td><span class="badge bdg-yellow">รออนุมัติ</span></td>
+      <td><button class="btn btn-sm btn-gray">👁</button></td>
+    </tr>
+    <tr>
+      <td style="font-size:12px;color:var(--accent);font-weight:500">EXP-2568-030</td>
+      <td><span class="badge bdg-gray" style="font-size:10px">ค่าฝึกอบรม</span></td>
+      <td class="muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">ค่าลงทะเบียน Seminar AI</td>
+      <td style="font-weight:600;color:var(--text-primary)">2,500 บ.</td>
+      <td class="muted">10 พ.ค. 68</td>
+      <td><span class="badge bdg-yellow">รออนุมัติ</span></td>
+      <td><button class="btn btn-sm btn-gray">👁</button></td>
+    </tr>
+    <tr>
+      <td style="font-size:12px;color:var(--accent);font-weight:500">EXP-2568-025</td>
+      <td><span class="badge bdg-gray" style="font-size:10px">ค่าเดินทาง</span></td>
+      <td class="muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">ไปสัมมนา HR กรุงเทพฯ</td>
+      <td style="font-weight:600;color:var(--text-primary)">3,200 บ.</td>
+      <td class="muted">5 พ.ค. 68</td>
+      <td><span class="badge bdg-red">ปฏิเสธ</span></td>
+      <td><button class="btn btn-sm btn-gray">👁</button></td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</div>
+
+<div id="exp-all" style="display:none">
+<div class="row-2">
+  <div class="section-card">
+    <div class="card-head"><div class="card-title"><div class="card-icon">📊</div>สรุปค่าใช้จ่ายทุกคน</div></div>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>พนักงาน</th><th>รายการ</th><th>ยอดรวม</th><th>สถานะ</th></tr></thead>
+      <tbody>
+      
+      <tr><td style="font-weight:500;font-size:13px">กมลชัย วงษ์</td><td class="muted">3 รายการ</td><td style="font-weight:600">4,780 บ.</td><td><span class="badge bdg-yellow">รออนุมัติ</span></td></tr>
+      <tr><td style="font-weight:500;font-size:13px">สุทธิพร มณี</td><td class="muted">2 รายการ</td><td style="font-weight:600">1,200 บ.</td><td><span class="badge bdg-green">โอนแล้ว</span></td></tr>
+      <tr><td style="font-weight:500;font-size:13px">อนุสรณ์ ทรงวุฒิ</td><td class="muted">5 รายการ</td><td style="font-weight:600">12,400 บ.</td><td><span class="badge bdg-yellow">รออนุมัติ</span></td></tr>
+      <tr><td style="font-weight:500;font-size:13px">พนิดา รักสงบ</td><td class="muted">1 รายการ</td><td style="font-weight:600">680 บ.</td><td><span class="badge bdg-green">โอนแล้ว</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="section-card">
+    <div class="card-head"><div class="card-title"><div class="card-icon">📈</div>สรุปตามประเภท (พ.ค.)</div></div>
+    <div class="card-body">
+      
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">ค่าเดินทาง</span>
+          <span style="color:var(--text-secondary)">38,400 บ. <span style="color:#3b82f6">(46%)</span></span>
+        </div>
+        <div style="height:7px;background:var(--border-light);border-radius:4px"><div style="height:100%;width:46%;background:#3b82f6;border-radius:4px"></div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">ค่าอาหาร</span>
+          <span style="color:var(--text-secondary)">12,200 บ. <span style="color:#f59e0b">(15%)</span></span>
+        </div>
+        <div style="height:7px;background:var(--border-light);border-radius:4px"><div style="height:100%;width:15%;background:#f59e0b;border-radius:4px"></div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">ค่าฝึกอบรม</span>
+          <span style="color:var(--text-secondary)">18,500 บ. <span style="color:#8b5cf6">(22%)</span></span>
+        </div>
+        <div style="height:7px;background:var(--border-light);border-radius:4px"><div style="height:100%;width:22%;background:#8b5cf6;border-radius:4px"></div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">ค่าโทรศัพท์</span>
+          <span style="color:var(--text-secondary)">7,200 บ. <span style="color:#10b981">(9%)</span></span>
+        </div>
+        <div style="height:7px;background:var(--border-light);border-radius:4px"><div style="height:100%;width:9%;background:#10b981;border-radius:4px"></div></div>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">อื่นๆ</span>
+          <span style="color:var(--text-secondary)">8,020 บ. <span style="color:#9ca3af">(10%)</span></span>
+        </div>
+        <div style="height:7px;background:var(--border-light);border-radius:4px"><div style="height:100%;width:10%;background:#9ca3af;border-radius:4px"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="exp-modal-ov" class="modal-overlay" onclick="closeModal('exp-modal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head"><div class="modal-title">💰 ยื่นใบเบิกค่าใช้จ่าย</div><button class="modal-close" onclick="closeModal('exp-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">ประเภทค่าใช้จ่าย</label><select class="form-control"><option>ค่าเดินทาง</option><option>ค่าอาหาร (OT)</option><option>ค่าโทรศัพท์</option><option>ค่าฝึกอบรม</option><option>อื่นๆ</option></select></div>
+        <div class="form-group"><label class="form-label">วันที่เกิดค่าใช้จ่าย</label><input type="date" class="form-control"></div>
+        <div class="form-group"><label class="form-label">จำนวนเงิน (บาท)</label><input type="number" class="form-control" placeholder="0.00"></div>
+        <div class="form-group"><label class="form-label">สกุลเงิน</label><select class="form-control"><option>THB</option><option>USD</option><option>JPY</option></select></div>
+        <div class="form-group full"><label class="form-label">รายละเอียด</label><textarea class="form-control" placeholder="อธิบายค่าใช้จ่าย..."></textarea></div>
+        <div class="form-group full"><label class="form-label">แนบใบเสร็จ/หลักฐาน</label><input type="file" class="form-control" multiple></div>
+        <div class="form-group full"><label class="form-label">ช่องทางรับเงิน</label><select class="form-control"><option>โอนเข้าบัญชีเงินเดือน</option><option>รับเงินสด</option></select></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-gray" onclick="closeModal('exp-modal')">ยกเลิก</button><button class="btn btn-primary">📤 ยื่นใบเบิก</button></div>
+  </div>
+</div>
+
+    <div class="page-footer">© 2568 AI Pairoj — by BUGpairoj Group &nbsp;|&nbsp; HR OneFlow Platform v2.0</div>
+  </div>
+</div>
+<script>
+function toggleSidebar(){
+  const s=document.getElementById('sidebar');
+  const t=document.getElementById('sb-toggle');
+  s.classList.toggle('collapsed');
+  document.body.classList.toggle('sb-collapsed');
+  t.textContent=s.classList.contains('collapsed')?'▶':'◀';
+  localStorage.setItem('sb',s.classList.contains('collapsed')?'1':'0');
+}
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0');
+}
+function toggleFullscreen(){
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
+function openModal(id){const el=document.getElementById(id+'-ov');if(el)el.classList.add('open');}
+function closeModal(id){const el=document.getElementById(id+'-ov');if(el)el.classList.remove('open');}
+function openPanel(id){
+  const ov=document.getElementById(id+'-ov');
+  const pn=document.getElementById(id);
+  if(ov)ov.classList.add('open');
+  if(pn)pn.classList.add('open');
+}
+function closePanel(id){
+  const ov=document.getElementById(id+'-ov');
+  const pn=document.getElementById(id);
+  if(ov)ov.classList.remove('open');
+  if(pn)pn.classList.remove('open');
+}
+function switchTab(btn,contentId){
+  const group=btn.closest('[data-tabgroup]');
+  if(group){
+    group.querySelectorAll('[data-tab]').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    const prefix=group.dataset.tabgroup;
+    document.querySelectorAll('[data-tabcontent="'+prefix+'"]').forEach(p=>p.style.display='none');
+  }
+  const pane=document.getElementById(contentId);
+  if(pane)pane.style.display='block';
+}
+(function init(){
+  if(localStorage.getItem('dark')==='1')document.body.classList.add('dark');
+  if(localStorage.getItem('sb')==='1'){
+    const s=document.getElementById('sidebar');
+    const t=document.getElementById('sb-toggle');
+    if(s){s.classList.add('collapsed');document.body.classList.add('sb-collapsed');}
+    if(t)t.textContent='▶';
+  }
+  const chip=document.getElementById('date-chip');
+  if(chip){
+    const d=new Date();
+    const days=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
+    const months=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    chip.textContent='📅 '+days[d.getDay()]+' '+d.getDate()+' '+months[d.getMonth()]+' '+(d.getFullYear()+543);
+  }
+})();
+</script>
+</body>
+</html>
